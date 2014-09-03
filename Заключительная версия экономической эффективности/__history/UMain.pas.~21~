@@ -1,0 +1,554 @@
+unit UMain;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, TeeProcs, TeEngine, Chart, StdCtrls, Vcl.ActnList,
+  Vcl.Buttons, Vcl.Menus, math,  IniFiles ;
+
+type
+  TFMain = class(TForm)
+    SDial: TSaveDialog;
+    ODial: TOpenDialog;
+    ActionList1: TActionList;
+    open_file: TAction;
+    new_file: TAction;
+    MainMenu1: TMainMenu;
+    A1: TMenuItem;
+    N2: TMenuItem;
+    save: TAction;
+    save_as: TAction;
+    Panel2: TPanel;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    ScrollBox1: TScrollBox;
+    ComboBox1: TComboBox;
+    ComboBox10: TComboBox;
+    ComboBox11: TComboBox;
+    ComboBox12: TComboBox;
+    ComboBox13: TComboBox;
+    ComboBox14: TComboBox;
+    ComboBox15: TComboBox;
+    ComboBox16: TComboBox;
+    ComboBox17: TComboBox;
+    ComboBox2: TComboBox;
+    ComboBox3: TComboBox;
+    ComboBox4: TComboBox;
+    ComboBox5: TComboBox;
+    ComboBox6: TComboBox;
+    ComboBox7: TComboBox;
+    ComboBox8: TComboBox;
+    ComboBox9: TComboBox;
+    Label1: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label19: TLabel;
+    Label2: TLabel;
+    Label20: TLabel;
+    Label21: TLabel;
+    Label22: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label5: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    SpeedButton4: TSpeedButton;
+    Panel1: TPanel;
+    SpeedButton5: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton6: TSpeedButton;
+    SpeedButton8: TSpeedButton;
+    SpeedButton7: TSpeedButton;
+    N8: TMenuItem;
+    N9: TMenuItem;
+    ListBox1: TListBox;
+    ComboBox18: TComboBox;
+    Label3: TLabel;
+    N1: TMenuItem;
+    procedure FormCreate(Sender: TObject);
+    procedure Panel1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Panel1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Panel1MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Label1MouseEnter(Sender: TObject);
+    procedure Label1MouseLeave(Sender: TObject);
+    procedure Label2Click(Sender: TObject);
+    procedure Label1Click(Sender: TObject);
+    procedure Label14Click(Sender: TObject);
+    procedure Label15Click(Sender: TObject);
+    procedure Label9Click(Sender: TObject);
+    procedure Label13Click(Sender: TObject);
+    procedure open_fileExecute(Sender: TObject);
+    procedure saveExecute(Sender: TObject);
+    procedure save_asExecute(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton4Click(Sender: TObject);
+    procedure SpeedButton5Click(Sender: TObject);
+    procedure SpeedButton6Click(Sender: TObject);
+    procedure SpeedButton8Click(Sender: TObject);
+    procedure SpeedButton7Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ListBox1MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    function GetIniCount(IniFileName, IniSection: string): integer;
+    procedure ListBox1Click(Sender: TObject);
+    procedure new_fileExecute(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    Lx,Ly:integer;
+    MD:Boolean;
+    spfil: array[0..9] of string;
+  end;
+
+var
+  FMain: TFMain;
+
+implementation
+
+uses UDmod, URisk, Unit1, Ud,uconverter, UDP, UCDD;
+
+{$R *.dfm}
+function TFMain.GetIniCount(IniFileName, IniSection: string): integer;
+var
+  IniFile: TIniFile;
+  SL: TStringList;
+begin
+  IniFile:=TIniFile.Create(IniFileName);
+  SL:=TStringList.Create;
+  try
+    IniFile.ReadSection(IniSection,SL);
+    Result:=SL.Count;
+  finally
+    SL.Free;
+    IniFile.Free;
+  end;
+end;
+
+procedure TFMain.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+Application.Terminate;
+end;
+
+procedure TFMain.FormCreate(Sender: TObject);
+var r1,r2:HRGN;
+e: real;
+ini: Tinifile;
+i:integer;
+
+begin
+ Ini := TIniFile.Create('ListFile.ini');
+ if GetIniCount('ListFile.ini','Список файлов')=0 then Exit
+ else
+   for i := GetIniCount('ListFile.ini','Список файлов') downto 1 do
+ begin
+ spfil[i-1]:=Ini.ReadString('Список файлов','Фаил № '+IntToStr(i),'fdf');
+ ListBox1.Items.Add(ExtractFileName(spfil[i-1]));
+ end;
+ //Ini.ReadSection('Список файлов', spfil);
+ Panel2.Top:=Round(FMain.Height/2-Panel2.Height/2);       //  Ставлю панель по центру
+ Panel2.Left:=Round(FMain.Width/2-Panel2.Width/2);
+ Panel2.Focused;
+
+  {if ParamStr(1) <> '' then
+    Panel1.caption := Panel1.caption + ' для "' + ParamStr(1) + '"';                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  r1:=CreateRectRGN(0,0, RightChart.Width, RightChart.Height);
+  r2:=createEllipticRgn(0,-RightChart.Height, RightChart.Width, RightChart.Height*2);
+  CombineRGN(r1,r1,r2,RGN_AND);
+
+  SetWindowRGN(RightChart.Handle,r1,true);  }
+end;
+
+procedure TFMain.Panel1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+{ LX:=x;
+  LY:=y;
+  MD:=True;}
+end;
+
+procedure TFMain.Panel1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+ { MD:=False;}
+end;
+
+procedure TFMain.saveExecute(Sender: TObject);      //Функция сохранения
+begin
+if DM.CurrentFileName='' then
+  If SDial.Execute then
+  Begin
+    DM.CreateNewDataBase(SDial.FileName);
+    DM.SaveProject;
+  //  FileNameLab.Caption:=DM.CurrentFileName;           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  End
+  Else EXIT;
+
+  DM.SaveProject;
+ // FileNameLab.Caption:=DM.CurrentFileName;             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+end;
+
+procedure TFMain.save_asExecute(Sender: TObject);
+begin
+SDial.FileName:='"Название проекта" '+ComboBox18.Text;
+ If SDial.Execute then
+  Begin
+    DM.CreateNewDataBase(SDial.FileName);
+    DM.SaveProject;
+  //FileName.Caption:=DM.CurrentFileName;  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  End;
+end;
+
+procedure TFMain.SpeedButton3Click(Sender: TObject);
+var i:integer;
+begin
+   {for i:=1 to 17 do
+  begin
+    if (FindComponent('combobox'+inttostr(i)) as TCombobox).ItemIndex=-1  then
+    begin
+      ShowMessage('Заполните все поля!');
+      Exit;
+    end;
+  end;      }
+
+  Fd.ShowModal;
+  Fd.SpeedButton1Click(self);
+end;
+
+procedure TFMain.SpeedButton4Click(Sender: TObject);
+var i:integer;
+begin
+
+for i:=1 to 17 do
+begin
+  if (FindComponent('combobox'+inttostr(i)) as TCombobox).ItemIndex=-1  then
+  begin
+    ShowMessage('Заполните все поля!');
+    Exit;
+  end;
+end;
+
+
+label22.Visible:=true;
+label23.Visible:=true;
+label24.Visible:=true;
+s:=0;
+k:=0;
+
+  case  ComboBox1.ItemIndex of
+    0: S:=s+8;
+    1: S:=s+4;
+    2:S:=s+7;
+    3:S:=s+6;
+    4:S:=s+4;
+    5:S:=s+5;
+  end;
+
+  case  ComboBox2.ItemIndex of
+    0:S:=s+6;
+    1:S:=s+7;
+    2:S:=s+4;
+    3:S:=s+3;
+  end;
+
+  case  ComboBox3.ItemIndex of
+    0:S:=s+6;
+    1:S:=s+4;
+    2:S:=s+7;
+    3:S:=s+3;
+    4:S:=s+8;
+    5:S:=s+1;
+    6:S:=s+8;
+    7:S:=s+2;
+    8:S:=s+5;
+  end;
+
+  case  ComboBox4.ItemIndex of
+    0:S:=s+7;
+    1:S:=s+6;
+    2:S:=s+5;
+    3:S:=s+4;
+  end;
+
+  case  ComboBox5.ItemIndex of
+    0:S:=s+7;
+    1:S:=s+8;
+    2:S:=s+6;
+    3:S:=s+5;
+  end;
+
+  case  ComboBox6.ItemIndex of
+    0:S:=s+4;
+    1:S:=s+5;
+    2:S:=s+6;
+    3:S:=s+5;
+  end;
+
+  case  ComboBox7.ItemIndex of
+    0:S:=s+5;
+    1:S:=s+6;
+    2:S:=s+7;
+    end;
+
+
+  case  ComboBox8.ItemIndex of
+    0:S:=S+8;
+    1:S:=S+4;
+    2:S:=S+2;
+  end;
+
+  case  ComboBox13.ItemIndex of
+    0:S:=S+6;
+    1:S:=S+4;
+    2:S:=S+1;
+  end;
+
+  case  ComboBox14.ItemIndex of
+    0:S:=S+7;
+    1:S:=S+5;
+    2:S:=S+3;
+  end;
+
+  case  ComboBox15.ItemIndex of
+    0:S:=S+8;
+    1:S:=S+3;
+    2:S:=S+4;
+    3:S:=S+5;
+    4:S:=S+7;
+  end;
+
+  case  ComboBox16.ItemIndex of
+    0:S:=S+1;
+    1:S:=S+3;
+    2:S:=S+5;
+    3:S:=S+7;
+  end;
+
+  case  ComboBox9.ItemIndex of
+    0:S:=S+7;
+    1:S:=S+4;
+    2:S:=S+5;
+    3:S:=S+8;
+  end;
+
+  case  ComboBox10.ItemIndex of
+    0:S:=S+1;
+    1:S:=S+5;
+    2:S:=S+8;
+  end;
+
+  case  ComboBox11.ItemIndex of
+    0:S:=S+8;
+    1:S:=S+2;
+    2:S:=S+4;
+    3:S:=S+6;
+    4:S:=S+7;
+  end;
+
+  case  ComboBox12.ItemIndex of
+    0:S:=S+8;
+    1:S:=S+6;
+    2:S:=S+2;
+    3:S:=S+3;
+    4:S:=S+7;
+  end;
+
+  case  ComboBox17.ItemIndex of
+    0:S:=S+2;
+    1:S:=S+4;
+    2:S:=S+6;
+    3:S:=S+8;
+  end;
+k:=s/17;
+label22.Caption:=rts(k);
+
+    if k<=1.49 then prem:=0.0;
+    if (k > 1.5) and (k<= 2.49) then prem:=0.5;
+    if (k>2.5)and (k<=3.49)then prem:=1.0;
+    if (k>3.5)and (k<=4.49)then prem:=2.0;
+    if (k>4.5)and (k<=5.49)then prem:=5.0;
+    if (k>5.5)and (k<=6.49)then prem:=10.0;
+    if (k>6.5)and (k<=7.49)then prem:=20.0;
+    label24.Caption:=rts(prem)+'%';
+
+Fd.edit2.text:=FloatToStr(prem/100) ;
+end;
+
+procedure TFMain.SpeedButton5Click(Sender: TObject);
+begin
+  FDP.ShowModal;
+end;
+
+procedure TFMain.SpeedButton6Click(Sender: TObject);
+begin
+
+FDP.SpeedButton1Click(Self);
+FDper.Button6Click(self);
+end;
+
+
+procedure TFMain.SpeedButton7Click(Sender: TObject);
+begin
+FDper.Button3Click(Self);
+end;
+
+procedure TFMain.SpeedButton8Click(Sender: TObject);
+begin
+FDper.Button4Click(Self);
+end;
+
+procedure TFMain.Panel1MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  if not MD then EXIT;
+
+  Left:=Left+(X-LX);
+  Top:=top+(Y-Ly);
+end;
+
+procedure TFMain.Label1MouseEnter(Sender: TObject);
+begin
+  (Sender As TLabel).Font.Style :=(Sender As TLabel).Font.Style+[fsUnderLine];
+end;
+
+procedure TFMain.Label1MouseLeave(Sender: TObject);
+begin
+  (Sender As TLabel).Font.Style :=(Sender As TLabel).Font.Style-[fsUnderLine];
+end;
+
+procedure TFMain.Label2Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFMain.Label1Click(Sender: TObject);
+begin
+  FRisk.ShowModal;
+end;
+
+procedure TFMain.Label14Click(Sender: TObject);
+begin
+  DM.CurrentFileName:='';
+ // FileNamelab.Caption:=DM.CurrentFileName;        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+end;
+
+procedure TFMain.Label15Click(Sender: TObject);
+begin
+  if ODial.Execute then
+  Begin
+    DM.OpenProject(ODial.FileName);
+    form1.lb.items.add(ODial.FileName);
+   // FileNamelab.Caption:=DM.CurrentFileName;      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  End;
+end;
+
+procedure TFMain.Label9Click(Sender: TObject);
+begin
+  FRisk.ShowModal;
+end;
+
+procedure TFMain.ListBox1Click(Sender: TObject);
+begin
+
+ //ShowMessage(IntToStr( ListBox1.ItemIndex));
+ DM.OpenProject(spfil[9-ListBox1.ItemIndex]);
+ form1.lb.items.add(spfil[9-ListBox1.ItemIndex]);
+ Panel2.Visible:=false;
+ ScrollBox1.Visible:=true;
+ SpeedButton4Click(Self);
+ Panel1.Visible:=true;
+ N8.Enabled:=true;
+ N9.Enabled:=true;
+end;
+
+procedure TFMain.ListBox1MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+Var Point:TPoint;
+t:Integer;
+begin
+
+Point.X:=X;
+Point.Y:=Y;
+With ListBox1 Do
+Begin
+t:=ItemAtPos(Point,True);
+IF t>-1 then
+Hint:=spfil[9-t]
+Else Application.CancelHint;
+End;
+
+end;
+
+procedure TFMain.new_fileExecute(Sender: TObject);
+var
+i: integer;
+begin
+
+ If SDial.Execute then
+  Begin
+    DM.CreateNewDataBase(SDial.FileName);
+    DM.OpenProject(SDial.FileName);
+    form1.lb.items.add(SDial.FileName);
+  End;
+
+  for i:=1 to 18 do
+  begin
+     (FMain.FindComponent('Combobox'+inttostr(i)) as TCombobox).ItemIndex:= -1;
+  end;
+   Panel2.Visible:=false;           //Скрываем и показываем поля
+    ScrollBox1.Visible:=true;
+    Panel1.Visible:=true;
+end;
+
+procedure TFMain.open_fileExecute(Sender: TObject);     //Функция открытия файла
+var ini: Tinifile;
+i: integer;
+buf: string;
+begin
+ if ODial.Execute then
+  Begin
+    DM.OpenProject(ODial.FileName);
+    form1.lb.items.add(ODial.FileName);
+    // FRisk.ShowModal;
+    //FileNamelab.Caption:=DM.CurrentFileName;  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    Panel2.Visible:=false;           //Скрываем и показываем поля
+    ScrollBox1.Visible:=true;
+
+    // Добавление в init фаил
+    Ini := TIniFile.Create('ListFile.ini');
+    if GetIniCount('ListFile.ini','Список файлов')=10 then
+      begin
+        for I := 1 to 9 do
+        begin
+        ini.WriteString('Список файлов','Фаил № '+IntToStr(i),Ini.ReadString('Список файлов','Фаил № '+IntToStr(i+1),'fdf'));
+        end;
+        ini.WriteString('Список файлов','Фаил № '+'10',ODial.FileName);
+      end
+    else
+      ini.WriteString('Список файлов','Фаил № '+IntToStr(ListBox1.Count+1),ODial.FileName);
+    SpeedButton4Click(Self);
+    Panel1.Visible:=true;
+  N8.Enabled:=true;
+  N9.Enabled:=true;
+  End;
+end;
+
+procedure TFMain.Label13Click(Sender: TObject);
+begin
+ //filepanel.BringToFront;          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+end;
+
+end.

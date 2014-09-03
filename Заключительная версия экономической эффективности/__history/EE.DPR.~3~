@@ -1,0 +1,32 @@
+program EE;
+
+
+
+uses
+  Forms,
+  URisk in 'URisk.pas' {FRisk},
+  UConverter in '..\..\Новая папка\Djcr\Работа\Работа на 22\Исправляемая версия\ээ2\ээ2\UConverter.pas',
+  UDP in 'UDP.PAS' {FDP},
+  Ud in 'Ud.pas' {Fd},
+  UCDD in 'UCDD.PAS' {FDper},
+  UDmod in 'UDmod.pas' {DM: TDataModule},
+  UMain in 'UMain.pas' {FMain},
+  UCO in 'UCO.pas' {CO},
+  Unit1 in 'Unit1.pas' {Form1},
+  UZast in 'UZast.pas' {Form2};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TFMain, FMain);
+  Application.CreateForm(TFRisk, FRisk);
+  Application.CreateForm(TFDP, FDP);
+  Application.CreateForm(TFd, Fd);
+  Application.CreateForm(TFDper, FDper);
+  Application.CreateForm(TDM, DM);
+  Application.CreateForm(TCO, CO);
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TForm2, Form2);
+  Application.Run;
+end.

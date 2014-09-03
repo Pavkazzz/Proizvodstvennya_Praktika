@@ -1,0 +1,838 @@
+object FMain: TFMain
+  Left = 228
+  Top = 118
+  BorderStyle = bsSingle
+  Caption = #1069#1082#1086#1085#1086#1084#1080#1077#1089#1082#1072#1103' '#1069#1092#1077#1082#1090#1080#1074#1085#1086#1089#1090#1100
+  ClientHeight = 594
+  ClientWidth = 768
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clBlack
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = [fsBold]
+  Menu = MainMenu1
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object ScrollBox1: TScrollBox
+    Left = 0
+    Top = 33
+    Width = 768
+    Height = 561
+    Align = alClient
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 1
+    Visible = False
+    object Label1: TLabel
+      Left = 253
+      Top = 50
+      Width = 99
+      Height = 13
+      Caption = #1055#1086' '#1089#1086#1076#1077#1088#1078#1072#1085#1080#1102' '
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label10: TLabel
+      Left = 92
+      Top = 185
+      Width = 252
+      Height = 13
+      Caption = #1058#1077#1088#1088#1080#1090#1086#1088#1080#1072#1083#1100#1085#1099#1081' '#1084#1072#1089#1096#1090#1072#1073' '#1085#1086#1074#1086#1074#1074#1077#1076#1077#1085#1080#1103
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label11: TLabel
+      Left = 94
+      Top = 213
+      Width = 250
+      Height = 13
+      Caption = #1052#1072#1089#1096#1090#1072#1073' '#1088#1072#1089#1087#1088#1086#1089#1090#1088#1072#1085#1077#1085#1080#1103' '#1085#1086#1074#1086#1074#1074#1077#1076#1077#1085#1080#1103
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label12: TLabel
+      Left = 111
+      Top = 241
+      Width = 232
+      Height = 13
+      Caption = #1055#1086' '#1089#1090#1077#1087#1077#1085#1080' '#1088#1072#1076#1080#1082#1072#1083#1100#1085#1086#1075#1089#1090#1080' ('#1085#1086#1074#1080#1079#1085#1099')'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label13: TLabel
+      Left = 112
+      Top = 378
+      Width = 232
+      Height = 13
+      Caption = #1069#1090#1072#1087#1099' '#1046#1062' '#1090#1086#1074#1072#1088#1072' ('#1087#1086' '#1090#1080#1087#1086#1074#1086#1081' '#1082#1088#1080#1074#1086#1081')'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label14: TLabel
+      Left = 133
+      Top = 406
+      Width = 211
+      Height = 13
+      Caption = #1059#1088#1086#1074#1077#1085#1100' '#1080#1079#1084#1077#1085#1095#1080#1074#1086#1089#1090#1080' '#1090#1077#1093#1085#1086#1083#1086#1075#1080#1080
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label15: TLabel
+      Left = 210
+      Top = 428
+      Width = 134
+      Height = 13
+      Caption = #1069#1090#1072#1087#1099' '#1046#1062' '#1090#1077#1093#1085#1086#1083#1086#1075#1080#1080
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label16: TLabel
+      Left = 130
+      Top = 452
+      Width = 216
+      Height = 13
+      Caption = #1069#1090#1072#1087#1099' '#1046#1062' '#1086#1088#1075#1072#1085#1080#1079#1072#1094#1080#1080'-'#1080#1085#1085#1086#1074#1072#1090#1086#1088#1072
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label17: TLabel
+      Left = 171
+      Top = 350
+      Width = 173
+      Height = 13
+      Caption = #1061#1072#1088#1072#1082#1090#1077#1088' '#1082#1088#1080#1074#1086#1081' '#1046#1062' '#1090#1086#1074#1072#1088#1072
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label18: TLabel
+      Left = 130
+      Top = 323
+      Width = 214
+      Height = 13
+      Caption = #1069#1090#1072#1087' '#1046#1062'  '#1089#1087#1088#1086#1089#1072' '#1085#1072' '#1085#1086#1074#1099#1081' '#1087#1088#1086#1076#1091#1082#1090
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label19: TLabel
+      Left = 97
+      Top = 268
+      Width = 250
+      Height = 13
+      Caption = #1055#1086' '#1075#1083#1091#1073#1080#1085#1077' '#1087#1088#1077#1086#1073#1088#1087#1072#1079#1086#1074#1072#1085#1080#1081' '#1080#1085#1085#1086#1074#1072#1090#1086#1088#1072
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label2: TLabel
+      Left = 61
+      Top = 506
+      Width = 66
+      Height = 13
+      Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090':'
+    end
+    object Label20: TLabel
+      Left = 102
+      Top = 295
+      Width = 244
+      Height = 13
+      Caption = #1055#1088#1080#1095#1080#1085#1072' '#1087#1086#1103#1074#1083#1077#1085#1080#1103' '#1085#1086#1074#1086#1075#1086' ('#1080#1085#1080#1094#1080#1072#1090#1080#1074#1072')'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label21: TLabel
+      Left = 108
+      Top = 478
+      Width = 239
+      Height = 13
+      Caption = #1044#1083#1080#1090#1077#1083#1100#1085#1086#1089#1090#1100' '#1080#1085#1085#1086#1074#1072#1094#1080#1086#1085#1085#1086#1075#1086' '#1087#1088#1086#1077#1082#1090#1072
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label22: TLabel
+      Left = 133
+      Top = 509
+      Width = 46
+      Height = 13
+      Caption = 'Label22'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+      Visible = False
+    end
+    object Label23: TLabel
+      Left = 26
+      Top = 538
+      Width = 101
+      Height = 13
+      Caption = #1055#1088#1077#1084#1080#1103' '#1079#1072' '#1088#1080#1089#1082':'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label24: TLabel
+      Left = 133
+      Top = 538
+      Width = 46
+      Height = 13
+      Caption = 'Label24'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+      Visible = False
+    end
+    object Label5: TLabel
+      Left = 78
+      Top = 75
+      Width = 266
+      Height = 13
+      Caption = #1058#1080#1087' '#1085#1086#1074#1072#1090#1086#1088#1072' ('#1089#1092#1077#1088#1072' '#1089#1086#1079#1076#1072#1085#1080#1103' '#1085#1086#1074#1096#1077#1074#1089#1090#1074#1072')'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label7: TLabel
+      Left = 97
+      Top = 103
+      Width = 246
+      Height = 13
+      Caption = #1058#1080#1087' '#1085#1086#1074#1072#1090#1086#1088#1072' ('#1086#1073#1083#1072#1089#1090#1100' '#1079#1085#1072#1085#1080#1081', '#1092#1091#1085#1082#1094#1080#1080')'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label8: TLabel
+      Left = 30
+      Top = 131
+      Width = 313
+      Height = 13
+      Caption = #1058#1080#1087' '#1085#1086#1074#1072#1090#1086#1088#1072' ('#1089#1092#1077#1088#1072' '#1085#1086#1074#1086#1074#1074#1077#1076#1077#1085#1080#1103':'#1092#1080#1088#1084#1072', '#1089#1083#1091#1078#1073#1072')'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label9: TLabel
+      Left = 218
+      Top = 156
+      Width = 125
+      Height = 13
+      Caption = #1059#1088#1086#1074#1077#1085#1100' '#1080#1085#1085#1086#1074#1072#1090#1086#1088#1072
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object SpeedButton4: TSpeedButton
+      Left = 574
+      Top = 512
+      Width = 97
+      Height = 22
+      Caption = #1056#1072#1089#1095#1105#1090
+      OnClick = SpeedButton4Click
+    end
+    object Label3: TLabel
+      Left = 186
+      Top = 21
+      Width = 160
+      Height = 13
+      Caption = #1042#1080#1076' '#1074#1086#1079#1084#1086#1078#1085#1086#1075#1086' '#1089#1094#1077#1085#1072#1088#1080#1103
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object ComboBox1: TComboBox
+      Left = 358
+      Top = 45
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      Items.Strings = (
+        #1053#1086#1074#1072#1103' '#1080#1076#1077#1103' '
+        #1053#1086#1074#1086#1077' '#1088#1077#1096#1077#1085#1080#1077
+        #1053#1086#1074#1086#1081' '#1087#1088#1086#1076#1091#1082#1090
+        #1053#1086#1074#1072#1103' '#1090#1077#1093#1085#1086#1083#1086#1075#1080#1103' ('#1084#1077#1090#1086#1076')'
+        #1053#1086#1074#1099#1081' '#1088#1077#1075#1083#1072#1084#1077#1085#1090', '#1089#1090#1088#1091#1082#1090#1091#1088#1072
+        #1053#1086#1074#1072#1103' '#1091#1089#1083#1091#1075#1072)
+    end
+    object ComboBox10: TComboBox
+      Left = 358
+      Top = 403
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      Items.Strings = (
+        '"'#1057#1090#1072#1073#1080#1083#1100#1085#1072#1103'" '#1090#1077#1093#1085#1086#1083#1086#1075#1080#1103
+        '"'#1055#1083#1086#1076#1086#1090#1074#1086#1088#1085#1072#1103'" '#1090#1077#1093#1085#1086#1083#1086#1075#1080#1103
+        '"'#1048#1079#1084#1077#1085#1095#1080#1074#1072#1103'" '#1090#1077#1093#1085#1086#1083#1086#1075#1080#1103)
+    end
+    object ComboBox11: TComboBox
+      Left = 358
+      Top = 427
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      Items.Strings = (
+        #1047#1072#1088#1086#1078#1076#1077#1085#1080#1077
+        #1059#1089#1082#1086#1088#1077#1085#1080#1077' '#1088#1086#1089#1090#1072
+        #1047#1072#1084#1077#1076#1083#1077#1085#1080#1077' '#1088#1086#1089#1090#1072
+        #1047#1088#1077#1083#1086#1089#1090#1100
+        #1047#1072#1090#1091#1093#1072#1085#1080#1077' ('#1089#1087#1072#1076')')
+    end
+    object ComboBox12: TComboBox
+      Left = 358
+      Top = 453
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      Items.Strings = (
+        #1057#1086#1079#1076#1072#1085#1080#1077
+        #1057#1090#1072#1085#1086#1074#1083#1077#1085#1080#1077
+        #1047#1088#1077#1083#1086#1089#1090#1100
+        #1055#1077#1088#1077#1089#1090#1088#1086#1081#1082#1072
+        #1059#1087#1072#1076#1086#1082)
+    end
+    object ComboBox13: TComboBox
+      Left = 358
+      Top = 267
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      Items.Strings = (
+        #1057#1080#1089#1090#1077#1084#1085#1099#1077
+        #1050#1086#1084#1087#1083#1077#1082#1089#1085#1099#1077
+        #1069#1083#1077#1084#1077#1085#1090#1085#1099#1077', '#1083#1086#1082#1072#1083#1100#1085#1099#1077)
+    end
+    object ComboBox14: TComboBox
+      Left = 358
+      Top = 293
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 5
+      Items.Strings = (
+        #1056#1072#1079#1074#1080#1090#1080#1077' '#1085#1072#1091#1082#1080' '#1080' '#1090#1077#1093#1085#1080#1082#1080
+        #1055#1086#1090#1088#1077#1073#1085#1086#1089#1090#1080' '#1087#1088#1086#1080#1079#1074#1086#1076#1089#1090#1074#1072
+        #1055#1086#1090#1088#1077#1073#1085#1086#1089#1090#1080' '#1088#1099#1085#1082#1072)
+    end
+    object ComboBox15: TComboBox
+      Left = 358
+      Top = 322
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 6
+      Items.Strings = (
+        #1047#1072#1088#1086#1078#1076#1077#1085#1080#1077' '
+        #1059#1089#1082#1086#1088#1077#1085#1080#1077' '#1088#1086#1089#1090#1072
+        #1047#1072#1084#1077#1076#1083#1077#1085#1080#1077' '#1088#1086#1089#1090#1072
+        #1047#1088#1077#1083#1086#1089#1090#1100
+        #1047#1072#1090#1091#1093#1072#1085#1080#1077'('#1089#1087#1072#1076')')
+    end
+    object ComboBox16: TComboBox
+      Left = 358
+      Top = 349
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 7
+      Items.Strings = (
+        #1058#1080#1087#1086#1074#1072#1103', '#1082#1083#1072#1089#1089#1080#1095#1077#1089#1082#1072#1103' '#1082#1088#1080#1074#1072#1103
+        #1050#1088#1080#1074#1072#1103' '#1089' "'#1087#1086#1074#1090#1086#1088#1085#1099#1084' '#1094#1080#1082#1083#1086#1084'"'
+        '"'#1043#1088#1077#1073#1077#1096#1082#1086#1074#1072#1103'" '#1082#1088#1080#1074#1072#1103
+        '"'#1055#1080#1082#1086#1074#1072#1103'" '#1082#1088#1080#1074#1072#1103)
+    end
+    object ComboBox17: TComboBox
+      Left = 356
+      Top = 478
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 8
+      Items.Strings = (
+        #1054#1087#1077#1088#1072#1090#1080#1074#1085#1099#1077' ('#1076#1086' 0,5 '#1075#1086#1076#1072')'
+        #1050#1088#1072#1090#1082#1086#1089#1088#1086#1095#1085#1099#1077' ('#1076#1086' 1 '#1075#1086#1076#1072')'
+        #1057#1088#1077#1076#1085#1077#1089#1088#1086#1095#1085#1099#1077' (2-3 '#1075#1086#1076#1072')'
+        #1044#1086#1083#1075#1086#1089#1088#1086#1095#1085#1099#1077' ('#1073#1086#1083#1077#1077' 3 '#1083#1077#1090')')
+    end
+    object ComboBox2: TComboBox
+      Left = 358
+      Top = 73
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 9
+      Items.Strings = (
+        #1053#1072#1091#1095#1085#1086' - '#1090#1077#1093#1085#1080#1095#1077#1089#1082#1080#1081' '#1086#1088#1075#1072#1085#1080#1079#1072#1094#1080#1080' '#1080' '#1086#1090#1076#1077#1083#1077#1085#1080#1103
+        #1055#1088#1086#1080#1079#1074#1086#1076#1089#1090#1074#1077#1085#1085#1099#1077' '#1092#1080#1088#1084#1099' '#1080' '#1086#1090#1076#1077#1083#1077#1085#1080#1103
+        #1052#1072#1088#1082#1077#1090#1080#1085#1075#1086#1074#1099#1077' '#1087#1086#1076#1088#1072#1079#1076#1077#1083#1077#1085#1080#1103' '#1080' '#1092#1080#1088#1084#1099
+        #1055#1086#1090#1088#1077#1073#1080#1090#1077#1083#1080' '#1080' '#1080#1093' '#1086#1088#1075#1072#1085#1080#1079#1072#1094#1080#1080)
+    end
+    object ComboBox3: TComboBox
+      Left = 358
+      Top = 101
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 10
+      Items.Strings = (
+        #1060#1080#1085#1072#1085#1089#1099' '#1080' '#1101#1082#1086#1085#1086#1084#1080#1082#1072
+        #1054#1088#1075#1072#1085#1080#1079#1072#1094#1080#1103' '#1080' '#1091#1087#1088#1072#1074#1083#1077#1085#1080#1077
+        #1055#1088#1086#1080#1079#1074#1086#1076#1089#1090#1074#1086' '
+        #1070#1088#1080#1089#1087#1088#1091#1076#1077#1085#1094#1080#1103
+        #1058#1077#1093#1085#1080#1082#1072' '#1080' '#1090#1077#1093#1085#1086#1083#1086#1075#1080#1103
+        #1050#1086#1085#1089#1091#1083#1100#1090#1072#1085#1090#1099
+        #1045#1089#1090#1077#1089#1090#1074#1086#1079#1085#1072#1085#1080#1077
+        #1053#1086#1091'-'#1093#1072#1091
+        #1057#1086#1094#1080#1072#1083#1100#1085#1099#1077' '#1080' '#1086#1073#1097#1077#1089#1090#1074#1077#1085#1085#1099#1077' '#1079#1074#1077#1085#1100#1103)
+    end
+    object ComboBox4: TComboBox
+      Left = 358
+      Top = 129
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 11
+      Items.Strings = (
+        #1053#1072#1091#1095#1085#1086'-'#1090#1077#1093#1085#1080#1095#1077#1089#1082#1080#1077' '#1079#1074#1077#1085#1100#1103
+        #1055#1088#1086#1084#1099#1096#1083#1077#1085#1085#1099#1077' '#1079#1074#1077#1085#1100#1103
+        #1060#1080#1085#1072#1085#1089#1086#1074#1099#1077', '#1084#1072#1088#1082#1077#1090#1080#1085#1075#1086#1074#1099#1077' '#1080' '#1082#1086#1084#1084#1077#1088#1095#1077#1089#1082#1080#1077' '#1079#1074#1077#1085#1100#1103
+        #1069#1082#1089#1087#1083#1091#1072#1090#1072#1094#1080#1086#1085#1085#1099#1077' '#1080' '#1086#1073#1089#1083#1091#1078#1080#1074#1072#1102#1097#1080#1077' '#1079#1074#1077#1085#1100#1103)
+    end
+    object ComboBox5: TComboBox
+      Left = 358
+      Top = 155
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 12
+      Items.Strings = (
+        #1055#1086#1076#1088#1072#1079#1076#1077#1083#1077#1085#1080#1077' '#1092#1080#1088#1084#1099
+        #1060#1080#1088#1084#1072
+        #1050#1086#1085#1094#1077#1088#1085', '#1082#1086#1088#1087#1086#1088#1072#1094#1080#1103
+        #1054#1090#1088#1072#1089#1083#1100', '#1075#1088#1091#1087#1087#1072' '#1086#1090#1088#1072#1089#1083#1077#1081)
+    end
+    object ComboBox6: TComboBox
+      Left = 358
+      Top = 183
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 13
+      Items.Strings = (
+        #1056#1072#1081#1086#1085', '#1075#1086#1088#1086#1076
+        #1054#1073#1083#1072#1089#1090#1100', '#1082#1088#1072#1081
+        #1056#1060', '#1057#1053#1043','#1041#1072#1083#1090#1080#1103
+        #1048#1085#1090#1077#1088#1085#1072#1094#1080#1086#1085#1072#1083#1080#1079#1072#1094#1080#1103)
+    end
+    object ComboBox7: TComboBox
+      Left = 358
+      Top = 212
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 14
+      Items.Strings = (
+        #1045#1076#1077#1085#1080#1095#1085#1072#1103' '#1088#1077#1072#1083#1080#1079#1072#1094#1080#1103
+        #1054#1075#1088#1072#1085#1080#1095#1077#1085#1085#1072#1103' '#1088#1077#1072#1083#1080#1079#1072#1094#1080#1103' ('#1076#1080#1092#1092#1091#1079#1080#1103')'
+        #1064#1080#1088#1086#1082#1072#1103' '#1076#1080#1092#1092#1091#1079#1080#1103)
+    end
+    object ComboBox8: TComboBox
+      Left = 358
+      Top = 239
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 15
+      Items.Strings = (
+        #1056#1072#1076#1080#1082#1072#1083#1100#1085#1072#1103'('#1087#1080#1086#1085#1077#1088#1085#1099#1077','#1073#1072#1079#1086#1074#1099#1077')'
+        #1054#1076#1080#1085#1072#1088#1085#1099#1077'('#1080#1079#1086#1073#1088#1077#1090#1077#1085#1080#1103', '#1085#1086#1074#1099#1077' '#1088#1072#1079#1088#1072#1073#1086#1090#1082#1080')'
+        #1059#1089#1086#1074#1077#1088#1096#1077#1085#1089#1090#1074#1091#1102#1097#1080#1077' ('#1084#1086#1076#1077#1088#1085#1080#1079#1072#1094#1080#1103')')
+    end
+    object ComboBox9: TComboBox
+      Left = 358
+      Top = 376
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 16
+      Items.Strings = (
+        #1042#1099#1074#1077#1076#1077#1085#1080#1077' '#1085#1072' '#1088#1099#1085#1086#1082
+        #1056#1086#1089#1090
+        #1047#1088#1077#1083#1086#1089#1090#1100
+        #1059#1087#1072#1076#1086#1082' ('#1089#1087#1072#1076')')
+    end
+    object ComboBox18: TComboBox
+      Left = 358
+      Top = 18
+      Width = 385
+      Height = 21
+      Style = csDropDownList
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 17
+      Items.Strings = (
+        #1054#1087#1090#1080#1084#1080#1089#1090#1080#1095#1085#1099#1081
+        #1055#1077#1089#1089#1080#1084#1080#1089#1090#1080#1095#1085#1099#1081
+        #1053#1072#1080#1073#1086#1083#1077#1077' '#1074#1077#1088#1086#1103#1090#1085#1099#1081)
+    end
+  end
+  object Panel2: TPanel
+    Left = 267
+    Top = 177
+    Width = 337
+    Height = 212
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    object SpeedButton1: TSpeedButton
+      Left = 166
+      Top = 17
+      Width = 147
+      Height = 22
+      Action = new_file
+    end
+    object SpeedButton2: TSpeedButton
+      Left = 15
+      Top = 17
+      Width = 145
+      Height = 22
+      Action = open_file
+    end
+    object ListBox1: TListBox
+      Left = 15
+      Top = 45
+      Width = 299
+      Height = 142
+      ItemHeight = 13
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      OnClick = ListBox1Click
+      OnMouseMove = ListBox1MouseMove
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 768
+    Height = 33
+    Align = alTop
+    TabOrder = 2
+    Visible = False
+    object SpeedButton5: TSpeedButton
+      Left = 153
+      Top = 4
+      Width = 150
+      Height = 24
+      Caption = #1044#1077#1085#1077#1078#1085#1099#1077' '#1087#1086#1090#1086#1082#1080
+      OnClick = SpeedButton5Click
+    end
+    object SpeedButton3: TSpeedButton
+      Left = -3
+      Top = 3
+      Width = 150
+      Height = 24
+      Caption = #1044#1080#1089#1082#1086#1085#1090
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = SpeedButton3Click
+    end
+    object SpeedButton6: TSpeedButton
+      Left = 303
+      Top = 3
+      Width = 150
+      Height = 24
+      Caption = #1056#1072#1089#1095#1105#1090' '#1063#1044#1044' '#1080' '#1063#1058#1057
+      OnClick = SpeedButton6Click
+    end
+    object SpeedButton8: TSpeedButton
+      Left = 609
+      Top = 4
+      Width = 150
+      Height = 24
+      Caption = #1057#1088#1072#1074#1085#1080#1090#1100
+      OnClick = SpeedButton8Click
+    end
+    object SpeedButton7: TSpeedButton
+      Left = 459
+      Top = 4
+      Width = 145
+      Height = 24
+      Caption = #1040#1085#1072#1083#1080#1079' '#1091#1089#1090#1086#1081#1095#1080#1074#1086#1089#1090#1080' '
+      OnClick = SpeedButton7Click
+    end
+  end
+  object SDial: TSaveDialog
+    DefaultExt = '*.mdb'
+    Filter = #1060#1072#1081#1083' MDB|*.mdb'
+    Options = [ofHideReadOnly, ofNoChangeDir, ofEnableSizing]
+    Left = 9
+    Top = 57
+  end
+  object ODial: TOpenDialog
+    DefaultExt = '*.mdb'
+    Filter = #1060#1072#1081#1083' MDB|*.mdb'
+    Options = [ofHideReadOnly, ofNoChangeDir, ofEnableSizing]
+    Left = 8
+    Top = 105
+  end
+  object ActionList1: TActionList
+    Left = 8
+    Top = 216
+    object open_file: TAction
+      Caption = #1054#1090#1082#1088#1099#1090#1100' '#1092#1072#1081#1083
+      OnExecute = open_fileExecute
+    end
+    object new_file: TAction
+      Caption = #1057#1086#1079#1076#1072#1090#1100' '#1085#1086#1074#1099#1081' '#1092#1072#1081#1083
+      OnExecute = new_fileExecute
+    end
+    object save: TAction
+      Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
+      OnExecute = saveExecute
+    end
+    object save_as: TAction
+      Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1082#1072#1082
+      OnExecute = save_asExecute
+    end
+  end
+  object MainMenu1: TMainMenu
+    Left = 8
+    Top = 152
+    object A1: TMenuItem
+      Caption = #1060#1072#1081#1083
+      object N1: TMenuItem
+        Action = new_file
+      end
+      object N2: TMenuItem
+        Action = open_file
+      end
+      object N8: TMenuItem
+        Action = save
+        Enabled = False
+      end
+      object N9: TMenuItem
+        Action = save_as
+        Enabled = False
+      end
+    end
+  end
+end

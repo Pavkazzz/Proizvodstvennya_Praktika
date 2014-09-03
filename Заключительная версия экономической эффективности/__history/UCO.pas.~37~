@@ -1,0 +1,718 @@
+unit UCO;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, TeEngine, Series, Grids, Buttons, TeeProcs,
+  Chart,math, shellapi, Vcl.CheckLst;
+
+type data= record
+    parId: integer;
+    parName: string;
+    periudId: integer;
+    proc: Real;
+    rost: Boolean;
+  end;
+type
+  TCO = class(TForm)
+    OD: TOpenDialog;
+    Chart1: TChart;
+    Series1: TLineSeries;
+    Series2: TLineSeries;
+    Series3: TBarSeries;
+    Series4: TBarSeries;
+    Series5: TBarSeries;
+    Panel3: TPanel;
+    sg2: TStringGrid;
+    Panel4: TPanel;
+    Panel1: TPanel;
+    Label3: TLabel;
+    Label4: TLabel;
+    cb1: TComboBox;
+    cb3: TComboBox;
+    Edit1: TEdit;
+    cb2: TComboBox;
+    Button2: TButton;
+    Button1: TButton;
+    Panel2: TPanel;
+    Button3: TButton;
+    Button4: TButton;
+    sg1: TStringGrid;
+    SGPost: TStringGrid;
+    SGPot: TStringGrid;
+    SGZat: TStringGrid;
+    Panel5: TPanel;
+    ListBox1: TListBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    sb1: TSpeedButton;
+    del: TSpeedButton;
+    Sb2: TSpeedButton;
+    Button5: TButton;
+    procedure Panel1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Panel1MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Panel1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Label2MouseEnter(Sender: TObject);
+    procedure Label2MouseLeave(Sender: TObject);
+    procedure Label2Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure copytabl;
+    procedure tabl;
+    procedure Button1Click(Sender: TObject);
+    procedure Edit1KeyPress(Sender: TObject; var Key: Char);
+    procedure Label5Click(Sender: TObject);
+    procedure Label6Click(Sender: TObject);
+    procedure Label62DblClick(Sender: TObject);
+    procedure Label62Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure cb3Change(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure Sb2Click(Sender: TObject);
+    procedure delClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    Lx,Ly:integer;
+    MD:Boolean;
+    percount:integer;
+    zap: array[0..20] of data;
+  end;
+
+var
+  CO: TCO;
+
+implementation
+
+uses UDP, UCDD, Ud,UConverter;
+
+{$R *.dfm}
+
+procedure TCO.Panel1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  LX:=x;
+  LY:=y;
+  MD:=True;
+end;
+
+procedure TCO.Button2Click(Sender: TObject);
+var
+i,ii, i3, lolwhot:integer;
+a,t,otv,otv2,tt1,tt2,otv3:real;
+
+begin
+{
+ for I := 1 to ListBox1.Items.Count+1 do
+ begin
+   ListBox2.Items.Add( zap[i].parName);
+
+ end;  }
+copytabl;
+tabl;
+
+ii:=fdp.SGPost.RowCount-2+fdp.SGZat.RowCount-2;
+
+
+for i:= 1 to percount do
+sg2.Cells[i,0]:=InttoStr(i);
+sg2.Cells[percount+1,0]:='Итого';
+sg2.Cells[0,0]:='Период';
+sg2.Cells[0,1]:='Дисконтир. доходы';
+sg2.Cells[0,2]:='Дисконтир. затраты';
+sg2.Cells[0,3]:='ЧДД';
+sg2.Cells[0,4]:='ЧТС';
+for I := 0 to ListBox1.Items.Count-1 do
+begin
+
+if zap[i].rost then
+ begin
+
+  if  zap[i].parId<=(cb1.Items.Count-fdp.SGPost.RowCount+2) then
+          a:=strtofloat(SGPost.cells[ zap[i].periudId+1,zap[i].parId+1])
+       else
+          a:=strtofloat(SGZat.cells[ zap[i].periudId+1,zap[i].parId-fdp.SGPost.RowCount+3]);
+       t:=t+strtofloat(sg2.Cells[ zap[i].periudId+1,4]);
+       otv:=a+((zap[i].proc*a)/100);
+       sg1.Cells[2,1]:=floattostr(otv);
+      if  zap[i].parId<=(cb1.Items.Count-fdp.SGPost.RowCount+2) then
+        SGPost.cells[zap[i].periudId+1,zap[i].parId+1]:=floattostr(otv)
+      else
+        SGZat.cells[zap[i].periudId+1,zap[i].parId-fdp.SGPost.RowCount+3]:=floattostr(otv);
+      tabl;
+      sg1.cells[2,2]:=sg2.Cells[zap[i].periudId+1,4];
+      //copytabl;
+ end
+    else
+    begin
+
+       if  zap[i].parId<=(cb1.Items.Count-fdp.SGPost.RowCount+2) then
+          a:=strtofloat(SGPost.cells[ zap[i].periudId+1,zap[i].parId+1])
+       else
+          a:=strtofloat(SGZat.cells[ zap[i].periudId+1,zap[i].parId-fdp.SGPost.RowCount+3]);
+       t:=t+strtofloat(sg2.Cells[ zap[i].periudId+1,4]);
+       otv:=a-((zap[i].proc*a)/100);
+       sg1.Cells[2,1]:=floattostr(otv);
+      if  zap[i].parId<=(cb1.Items.Count-fdp.SGPost.RowCount+2) then
+        SGPost.cells[zap[i].periudId+1,zap[i].parId+1]:=floattostr(otv)
+      else
+        SGZat.cells[zap[i].periudId+1,zap[i].parId-fdp.SGPost.RowCount+3]:=floattostr(otv);
+      tabl;
+      sg1.cells[2,2]:=sg2.Cells[zap[i].periudId+1,4];
+      //copytabl;
+end;
+end;
+
+ tt1:=strtofloat(sg2.Cells[cb3.ItemIndex+1,4]);
+ if  strtofloat(sg2.Cells[cb3.ItemIndex+1,4])<0 then
+   begin
+   sg1.Cells[3,1]:=floattostr(otv2);
+   sg1.Cells[3,2]:=floattostr(tt2);
+
+   sg1.Cells[4,1]:=floattostr(otv);
+   sg1.Cells[4,2]:=floattostr(tt1);
+
+   sg1.Cells[3,0]:=cb2.Items[cb2.itemindex]+' на '+inttostr(i-1);
+   sg1.Cells[4,0]:=cb2.Items[cb2.itemindex]+' на '+inttostr(i);
+   exit;
+   end;
+ otv2:=otv;
+ tt2:=tt1;
+Button4Click(sender);
+end;
+
+
+procedure TCO.Button3Click(Sender: TObject);
+begin
+print;
+end;
+
+procedure TCO.Button4Click(Sender: TObject);
+var i:integer;
+t:real;
+begin
+chart1.Series[0].visible:=true;
+chart1.Series[1].visible:=true;
+chart1.Series[2].visible:=false;
+chart1.Series[3].visible:=false;
+chart1.Series[4].visible:=false;
+
+chart1.Series[0].Clear;
+chart1.Series[1].Clear;
+t:=0;
+  for i:=1 to sg2.ColCount-2 do
+  begin
+  chart1.Series[0].AddXY(round(StrToFloat(sg2.cells[i,0])), round(StrToFloat(
+  sg2.cells[i,3])));
+  t:=t+ StrToFloat(sg2.cells[i,3]);
+  sg2.cells[i,4]:=floattostr(t);
+  chart1.Series[1].AddXY(round(StrToFloat(sg2.cells[i,0])),
+  round(t));
+  end;
+end;
+
+procedure TCO.Button5Click(Sender: TObject);
+begin
+
+if FDPer.FileEE<>'' then
+ShellExecute(Application.Handle,'open',PChar(FDPer.FileEE),nil,nil,SW_SHOWMAXIMIZED)
+else
+ begin
+ showmessage('Файл не найден! В появившемся окне выберите файл');
+ (Sender As TLabel).OnDblClick(self);
+ end;
+end;
+
+procedure TCO.cb3Change(Sender: TObject);
+var i: integer;
+begin
+if (cb3.ItemIndex<>-1) then
+begin
+  for i := 0 to  ListBox1.Items.Count-1 do
+  zap[i].periudId:=cb3.ItemIndex;
+ Label2.Caption:=IntToStr(cb3.ItemIndex+1);
+end;
+
+
+end;
+
+procedure TCO.copytabl;
+var i1,j1:integer;
+begin
+co.SGPost.colcount:=fdp.SGPost.ColCount;
+co.sgpost.rowcount:=fdp.SGPost.rowCount;
+
+co.sgzat.colcount:=fdp.SGzat.ColCount;
+co.sgzat.rowcount:=fdp.SGzat.rowCount;
+
+co.sgpot.colcount:=fdp.SGPot.ColCount;
+co.sgpot.rowcount:=fdp.SGPot.rowCount;
+
+for i1 :=0  to co.sgpost.colcount  do
+for j1 :=0  to co.sgpost.rowcount do
+co.sgpost.cells[i1,j1]:=fdp.sgpost.cells[i1,j1];
+
+for i1 :=0  to co.sgzat.colcount  do
+for j1 :=0  to co.sgzat.rowcount do
+co.sgzat.cells[i1,j1]:=fdp.sgzat.cells[i1,j1];
+
+for i1 :=0  to co.sgpot.colcount  do
+for j1 :=0  to co.sgpot.rowcount do
+co.sgpot.cells[i1,j1]:=fdp.sgpot.cells[i1,j1];
+end;
+
+procedure TCO.delClick(Sender: TObject);
+var i:integer;
+buf: data;
+begin
+
+for  i:= ListBox1.ItemIndex to ListBox1.Items.Count-1 do
+zap[i]:=zap[i+1];
+ListBox1.Items.Delete(ListBox1.ItemIndex);
+if ListBox1.Items.Count=0 then del.Enabled:=false;
+
+end;
+
+procedure TCO.tabl;
+var i2,j2:integer;
+s,t1,z:real;
+begin
+//fdp.Label11.OnClick(self);
+FDP.SpeedButton3.onclick(self);
+ for i2:=1 to percount do
+  begin
+    s:=0;
+    for j2:=1 to SGPost.RowCount-2 do
+    begin
+      if (SGPost.Cells[i2,j2]='') or (SGPost.Cells[i2,j2]=' ') then SGPost.Cells[i2,j2]:='0';
+      s:=s+StrToFloat(SGPost.Cells[i2,j2]);
+    End;
+      SGPost.Cells[i2,SGPost.RowCount-1]:=RTS(s);
+  End;
+
+  for i2:=1 to percount do
+  begin
+    s:=0;
+    for j2:=1 to SGZat.RowCount-2 do
+    begin
+      if (SGZat.Cells[i2,j2]='') or (SGZat.Cells[i2,j2]=' ') then SGZat.Cells[i2,j2]:='0';
+      s:=s+StrToFloat(SGZat.Cells[i2,j2]);
+    End;
+    SGZat.Cells[i2,SGZat.RowCount-1]:=RTS(s);
+  End;
+
+  for i2:=1 to percount do
+  Begin
+     SGPot.Cells[i2,1]:=SGPost.Cells[i2, SGPost.RowCount-1];
+     SGPot.Cells[i2,2]:=SGZat.Cells[i2, SGZat.RowCount-1];
+     SGPot.Cells[i2,3]:=RTS(StrToFloat(SGPot.Cells[i2,1])-StrToFloat(SGPot.Cells[i2,2]));
+     SGPot.Cells[i2,4]:=RTS(StrToFloat(SGZat.Cells[i2, SGZat.RowCount-1])-StrToFloat(SGZat.Cells[i2,1]));
+     SGPot.Cells[i2,5]:=RTS(StrToFloat(SGPost.Cells[i2, SGPost.RowCount-1])-StrToFloat(SGPot.Cells[i2,4]));
+  End;
+
+{for i2 :=1  to percount  do
+ begin
+t1:=t1+ StrToFloat(SGPot.cells[i2,3]);
+SGPot.cells[i2,4]:=floattostr(t1);
+ end;           }
+sg2.RowCount:=5;
+sg2.ColCount:=percount+2;
+z:=0;
+ for i2:=1 to percount  do   //поменяем 
+  begin
+       z := 1 / Power(1 + strtofloat(Fd.Label9.Caption), i2 - 1);
+
+       //FDper.sg1.Cells[i,1]:=RTS(StrToFloat(SGZat.Cells[i,1]) * z);
+sg2.Cells[i2,1]:=floattostr(roundto((StrToFloat(SGPot.Cells[i2,1]) * z),-3));
+sg2.Cells[i2,2]:=floattostr(roundto((StrToFloat(SGPot.Cells[i2,2]) * z),-3));
+sg2.Cells[i2,3]:=floattostr(roundto((StrToFloat(sg2.Cells[i2,1])-StrToFloat(sg2.Cells[i2,2])),-3));
+  End;
+  t1:=0;
+   //////////////////////////
+ {  z:=0;
+  for i2:=1 to percount do
+    z:=z+StrToFloat(sg2.Cells[i2,1]);
+    sg2.Cells[percount+1,1]:=RTS(Z);
+    z:=0;
+
+  for i2:=1 to percount do
+    z:=z+StrToFloat(sg2.Cells[i2,2]);
+
+    z:=0;
+  for i2:=1 to percount do
+    z:=z+StrToFloat(sg2.Cells[i2,1]);
+    sg2.Cells[percount+1,1]:=RTS(Z);
+    z:=0;
+
+sg2.Cells[percount + 1, 3]:=floattostr(StrToFloat(sg2.Cells[percount + 1,1])-StrToFloat(sg2.Cells[percount + 1,2]));
+  } //////////////////////////
+  for i2 :=1  to percount  do
+ begin
+ t1:=t1+ StrToFloat(SG2.cells[i2,3]);
+ SG2.cells[i2,4]:=floattostr(t1);
+ end;
+end;
+
+procedure TCO.Panel1MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  if not MD then EXIT;
+
+  Left:=Left+(X-LX);
+  Top:=top+(Y-Ly);
+end;
+
+procedure TCO.Panel1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  MD:=False;
+end;
+
+procedure TCO.Label2MouseEnter(Sender: TObject);
+begin
+(Sender As TLabel).Font.Style :=(Sender As TLabel).Font.Style+[fsUnderLine];
+end;
+
+procedure TCO.Label2MouseLeave(Sender: TObject);
+begin
+ (Sender As TLabel).Font.Style :=(Sender As TLabel).Font.Style-[fsUnderLine];
+
+end;
+
+procedure TCO.Label2Click(Sender: TObject);
+begin
+close;
+end;
+
+procedure TCO.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+Sb2Click(sender);
+cb1.ItemIndex:=-1;
+cb2.ItemIndex:=-1;
+cb3.ItemIndex:=-1;
+Edit1.Text:='10';
+end;
+
+procedure TCO.FormCreate(Sender: TObject);
+var i:integer;
+begin
+
+end;
+
+procedure TCO.FormShow(Sender: TObject);
+var i:integer;
+begin
+cb3.Items.Clear;
+for i :=1  to  percount do
+cb3.items.add(inttostr(i));
+end;
+
+procedure TCO.Sb2Click(Sender: TObject);
+begin
+Button2.Enabled:=False;
+ del.Enabled:=false;
+ListBox1.Clear;
+Label2.Caption:='';
+end;
+
+procedure TCO.SpeedButton1Click(Sender: TObject);           //  Добавляем в листбокс
+begin
+
+if (cb1.ItemIndex=-1)or(cb2.ItemIndex=-1)or(cb3.ItemIndex=-1) then
+ begin
+ showmessage('Выберите параметры расчета');
+ exit;
+ end;
+ Button2.Enabled:=true;
+ del.Enabled:=true;
+  Label2.Caption:=IntToStr(cb3.ItemIndex+1);
+ ListBox1.Items.Add(cb1.Text+' '+cb2.Text+'('+cb3.Text+')'+ 'на'+ Edit1.Text+' процентов');
+ //ShowMessageUser(IntToStr( ListBox1.ItemIndex));
+ zap[ListBox1.Items.Count-1].parName:=cb1.Text;
+ zap[ListBox1.Items.Count-1].parId:=cb1.ItemIndex;
+ zap[ListBox1.Items.Count-1].periudId:=cb3.ItemIndex;
+ zap[ListBox1.Items.Count-1].proc:=StrToInt(Edit1.text);
+ if cb2.ItemIndex=0 then   zap[ListBox1.Items.Count-1].rost:=True
+                    else   zap[ListBox1.Items.Count-1].rost:=False;
+
+
+end;
+
+procedure TCO.SpeedButton2Click(Sender: TObject);
+var
+i,ii, i3:integer;
+a,t,otv,otv2,tt1,tt2,otv3:real;
+begin
+copytabl;
+tabl;
+if (cb1.ItemIndex=-1)or(cb2.ItemIndex=-1)or(cb3.ItemIndex=-1) then
+ begin
+ showmessage('выберите параметры расчета');
+ exit;
+ end;
+ii:=fdp.SGPost.RowCount-2+fdp.SGZat.RowCount-2;
+
+
+for i:= 1 to percount do
+sg2.Cells[i,0]:=InttoStr(i);
+sg2.Cells[percount+1,0]:='Итого';
+sg2.Cells[0,0]:='Период';
+sg2.Cells[0,1]:='Дисконтир. доходы';
+sg2.Cells[0,2]:='Дисконтир. затраты';
+sg2.Cells[0,3]:='ЧДД';
+sg2.Cells[0,4]:='ЧТС';
+//showmessage(inttostr(cb1.itemindex-fdp.SGPost.RowCount+4));
+
+{if cb1.Itemindex<=(ii-fdp.SGPost.RowCount-2) then
+for i := 1 to 4  do
+a:=strtofloat(SGPost.cells[cb3.ItemIndex+i,cb1.ItemIndex+1])
+else
+for i := 1 to 4  do
+a:=strtofloat(SGZat.cells[cb3.ItemIndex+i,cb1.itemindex-fdp.SGPost.RowCount+3]);
+t:=0;
+for i := 1 to 4  do
+t:=t+strtofloat(sg2.Cells[cb3.ItemIndex+i+4,4]);   }
+
+
+if cb1.Itemindex<=(ii-fdp.SGPost.RowCount-2) then
+a:=strtofloat(SGPost.cells[cb3.ItemIndex+1,cb1.ItemIndex+1])
+else
+a:=strtofloat(SGZat.cells[cb3.ItemIndex+1,cb1.itemindex-fdp.SGPost.RowCount+3]);
+t:=t+strtofloat(sg2.Cells[cb3.ItemIndex+1,4]);
+//showmessage(floattostr(t));
+//t:=strtofloat(sg2.Cells[cb3.ItemIndex+1+4,4]);
+//showmessage(inttostr(fdp.SGPost.RowCount-2));
+//showmessage(floattostr(a));
+//showmessage(inttostr(ii-cb1.itemindex));
+{sg1.Cells[0,1]:=cb1.items[cb1.itemindex];
+sg1.Cells[0,2]:='ЧТС';
+sg1.Cells[1,0]:='100%';
+sg1.Cells[2,0]:=cb2.Items[cb2.itemindex]+' на 10%';
+sg1.Cells[1,1]:=floattostr(a);
+sg1.Cells[1,2]:=floattostr(t);}
+//a:=strtofloat(SGZat.cells[cb3.ItemIndex+1,cb1.ItemIndex-4]);
+Label3.Caption:='100% = '+floattostr(a);
+
+//showmessage('dddd');
+
+if cb2.ItemIndex=0 then
+ begin
+  //otv:=a+((10*a)/100);
+  otv:=a+((strtoint(Edit1.Text)*a)/100);
+  sg1.Cells[2,1]:=floattostr(otv);
+  Label4.Caption:='на '+Edit1.Text+'% = '+floattostr(otv);
+  if cb1.Itemindex<=(ii-fdp.SGPost.RowCount-2) then
+  SGPost.cells[cb3.ItemIndex+1,cb1.ItemIndex+1]:=floattostr(otv)
+  else
+  SGZat.cells[cb3.ItemIndex+1,cb1.itemindex-fdp.SGPost.RowCount+3]:=floattostr(otv);
+  tabl;
+  sg1.cells[2,2]:=sg2.Cells[cb3.ItemIndex+1,4];
+  copytabl; //////////
+
+ { for i :=1  to 100  do
+  begin
+// a:=strtofloat(SGZat.cells[cb3.ItemIndex+1,cb1.ItemIndex-4]);
+ otv:=a+((i*a)/100);
+
+
+  if cb1.Itemindex<=4 then
+  SGPost.cells[cb3.ItemIndex+1,cb1.ItemIndex+1]:=floattostr(otv)
+  else
+  SGZat.cells[cb3.ItemIndex+1,cb1.ItemIndex-4]:=floattostr(otv);
+
+
+
+
+  tabl;   }
+
+
+{ if cb1.Itemindex<=(ii-fdp.SGPost.RowCount-2) then
+for i3 := 1 to 4  do
+a:=strtofloat(SGPost.cells[cb3.ItemIndex+i3,cb1.ItemIndex+1])
+else
+for i3 := 1 to 4  do
+a:=strtofloat(SGZat.cells[cb3.ItemIndex+i3,cb1.itemindex-fdp.SGPost.RowCount+3]);
+t:=0;
+for i3 := 1 to 4  do
+t:=t+strtofloat(sg2.Cells[cb3.ItemIndex+i3+4,4]);     }
+
+
+  {tt1:=strtofloat(sg2.Cells[cb3.ItemIndex+1,4]);
+// showmessage('ss');
+   if  strtofloat(sg2.Cells[cb3.ItemIndex+1,4])<0 then
+   begin
+    sg1.Cells[3,1]:=floattostr(otv2);
+   sg1.Cells[3,2]:=floattostr(tt2);
+
+   sg1.Cells[4,1]:=floattostr(otv);
+   sg1.Cells[4,2]:=floattostr(tt1);
+
+   sg1.Cells[3,0]:=cb2.Items[cb2.itemindex]+' на '+inttostr(i-1);
+   sg1.Cells[4,0]:=cb2.Items[cb2.itemindex]+' на '+inttostr(i);
+   exit;
+   end;
+
+  otv2:=otv;
+  tt2:=tt1;
+  end;}
+
+
+ end
+  else
+  begin
+  //otv:=a-((10*a)/100);
+  otv:=a-((strtoint(Edit1.Text)*a)/100);
+  sg1.Cells[2,1]:=floattostr(otv);
+  Label4.Caption:='на '+Edit1.Text+'% = '+floattostr(otv);
+  if cb1.Itemindex<=(ii-fdp.SGPost.RowCount-2) then
+  SGPost.cells[cb3.ItemIndex+1,cb1.ItemIndex+1]:=floattostr(otv)
+  else
+  SGZat.cells[cb3.ItemIndex+1,cb1.itemindex-fdp.SGPost.RowCount+3]:=floattostr(otv);
+    tabl;
+  sg1.cells[2,2]:=sg2.Cells[cb3.ItemIndex+1,4];
+  copytabl;
+
+
+
+ {for i :=1  to 100  do
+ begin
+// a:=strtofloat(SGZat.cells[cb3.ItemIndex+1,cb1.ItemIndex-4]);
+ otv:=a-((i*a)/100);
+
+ if cb1.Itemindex<=4 then
+ SGPost.cells[cb3.ItemIndex+1,cb1.ItemIndex+1]:=floattostr(otv)
+else
+ SGZat.cells[cb3.ItemIndex+1,cb1.ItemIndex-4]:=floattostr(otv);
+
+
+ tabl;
+       }
+
+  { if cb1.Itemindex<=(ii-fdp.SGPost.RowCount-2) then
+for i3 := 1 to 4  do
+a:=strtofloat(SGPost.cells[cb3.ItemIndex+i3,cb1.ItemIndex+1])
+else
+for i3 := 1 to 4  do
+a:=strtofloat(SGZat.cells[cb3.ItemIndex+i3,cb1.itemindex-fdp.SGPost.RowCount+3]);
+t:=0;
+for i3 := 1 to 4  do
+t:=t+strtofloat(sg2.Cells[cb3.ItemIndex+i3+4,4]); }
+ {
+
+ tt1:=strtofloat(sg2.Cells[cb3.ItemIndex+1,4]);
+ //showmessage('ss');
+ if  strtofloat(sg2.Cells[cb3.ItemIndex+1,4])<0 then
+   begin
+   sg1.Cells[3,1]:=floattostr(otv2);
+   sg1.Cells[3,2]:=floattostr(tt2);
+
+   sg1.Cells[4,1]:=floattostr(otv);
+   sg1.Cells[4,2]:=floattostr(tt1);
+
+   sg1.Cells[3,0]:=cb2.Items[cb2.itemindex]+' на '+inttostr(i-1);
+   sg1.Cells[4,0]:=cb2.Items[cb2.itemindex]+' на '+inttostr(i);
+   exit;
+   end;
+ otv2:=otv;
+ tt2:=tt1;
+  end;  }
+ end;
+
+
+
+{for i :=1  to 10000  do
+ begin
+// a:=strtofloat(SGZat.cells[cb3.ItemIndex+1,cb1.ItemIndex-4]);
+ otv:=a-((i*a)/100);
+ SGZat.cells[cb3.ItemIndex+1,cb1.ItemIndex-4]:=floattostr(otv);
+ tabl;
+ tt1:=strtofloat(sg2.Cells[cb3.ItemIndex+1,4]);
+ showmessage('ss');
+ if  strtofloat(sg2.Cells[cb3.ItemIndex+1,4])<0 then
+ exit;
+ otv2:=otv;
+ tt2:=tt1;
+ end; }
+
+
+
+   sg1.Cells[3,1]:=floattostr(otv2);
+   sg1.Cells[3,2]:=floattostr(tt2);
+
+   sg1.Cells[4,1]:=floattostr(otv);
+   sg1.Cells[4,2]:=floattostr(tt1);
+
+   sg1.Cells[3,0]:='снижение на '+inttostr(i-1);
+   sg1.Cells[4,0]:='снижение на '+inttostr(i);
+end;
+
+
+procedure TCO.Button1Click(Sender: TObject);
+begin
+copytabl;
+tabl;
+showmessage(inttostr(cb1.ItemIndex));
+end;
+
+procedure TCO.Edit1KeyPress(Sender: TObject; var Key: Char);
+begin
+if not (Key in ['0'..'9', #08]) then key:=#0;
+end;
+
+procedure TCO.Label5Click(Sender: TObject);
+begin
+print;
+end;
+
+procedure TCO.Label6Click(Sender: TObject);
+var i:integer;
+t:real;
+begin
+chart1.Series[0].visible:=true;
+chart1.Series[1].visible:=true;
+chart1.Series[2].visible:=false;
+chart1.Series[3].visible:=false;
+chart1.Series[4].visible:=false;
+
+chart1.Series[0].Clear;
+chart1.Series[1].Clear;
+t:=0;
+  for i:=1 to sg2.ColCount-2 do
+  begin
+  chart1.Series[0].AddXY(round(StrToFloat(sg2.cells[i,0])), round(StrToFloat(
+  sg2.cells[i,3])));
+  t:=t+ StrToFloat(sg2.cells[i,3]);
+  sg2.cells[i,4]:=floattostr(t);
+  chart1.Series[1].AddXY(round(StrToFloat(sg2.cells[i,0])),
+  round(t));
+  end;
+end;
+
+procedure TCO.Label62DblClick(Sender: TObject);
+begin
+if (OD.Execute) then
+FDPer.FileEE:=OD.FileName;
+end;
+
+procedure TCO.Label62Click(Sender: TObject);
+begin
+if FDPer.FileEE<>'' then
+ShellExecute(Application.Handle,'open',PChar(FDPer.FileEE),nil,nil,SW_SHOWMAXIMIZED)
+else
+ begin
+ showmessage('Файл не найден! В появившемся окне выберите файл');
+ (Sender As TLabel).OnDblClick(self);
+ end;
+end;
+
+end.

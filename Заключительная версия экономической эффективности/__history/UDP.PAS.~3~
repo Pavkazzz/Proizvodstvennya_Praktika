@@ -1,0 +1,596 @@
+unit UDP;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, TeeProcs, TeEngine, Chart, StdCtrls, Grids, Spin,
+  Buttons,math, Vcl.ComCtrls;
+
+type
+  EPowerException = class(Exception)
+  end;
+
+  TFDP = class(TForm)
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    SGPost: TStringGrid;
+    Bevel1: TBevel;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
+    SGZat: TStringGrid;
+    Bevel2: TBevel;
+    Bevel3: TBevel;
+    SGPot: TStringGrid;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    Panel1: TPanel;
+    Edit1: TEdit;
+    SpinEdit2: TSpinEdit;
+    SpinEdit1: TSpinEdit;
+    Label9: TLabel;
+    Label8: TLabel;
+    Label7: TLabel;
+    Label6: TLabel;
+    Label10: TLabel;
+    ComboBox2: TComboBox;
+    ComboBox1: TComboBox;
+    cb3: TComboBox;
+    Panel2: TPanel;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    procedure FormCreate(Sender: TObject);
+    procedure Panel1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Panel1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Panel1MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Label1MouseEnter(Sender: TObject);
+    procedure Label1MouseLeave(Sender: TObject);
+    procedure Label2Click(Sender: TObject);
+    procedure Label4Click(Sender: TObject);
+    procedure SpinEdit1Change(Sender: TObject);
+    procedure SpinEdit2Change(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure Label11Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SGPostMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure SGZatMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure L1MouseEnter(Sender: TObject);
+    procedure L1MouseLeave(Sender: TObject);
+    procedure Label13Click(Sender: TObject);
+    procedure Label12Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton4Click(Sender: TObject);
+    procedure SpeedButton5Click(Sender: TObject);
+    procedure SGPostSelectCell(Sender: TObject; ACol, ARow: Integer;
+      var CanSelect: Boolean);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    Lx,Ly:integer;
+    MD:Boolean;
+    delRow1,delRow2: integer;
+
+  end;
+
+var
+  FDP: TFDP;
+
+implementation
+
+{$R *.dfm}
+
+USES UConverter, UCDD, Ud, UCO;
+
+procedure TFDP.FormCreate(Sender: TObject);
+var r1,r2:HRGN;
+begin
+  {r1:=CreateRectRGN(0,0, RightChart.Width, RightChart.Height);
+  r2:=createEllipticRgn(-RightChart.Width,-RightChart.Height, RightChart.Width, RightChart.Height*2);
+  CombineRGN(r1,r1,r2,RGN_AND);
+
+  SetWindowRGN(RightChart.Handle,r1,true); }
+
+end;
+
+procedure TFDP.Panel1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  LX:=x;
+  LY:=y;
+  MD:=True;
+end;
+
+procedure TFDP.Panel1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  MD:=False;
+end;
+
+procedure TFDP.Panel1MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  if not MD then EXIT;
+
+  Left:=Left+(X-LX);
+  Top:=top+(Y-Ly);
+end;
+
+procedure TFDP.Label1MouseEnter(Sender: TObject);
+begin
+  (Sender As TLabel).Font.Style :=(Sender As TLabel).Font.Style+[fsUnderLine];
+end;
+
+procedure TFDP.Label1MouseLeave(Sender: TObject);
+begin
+  (Sender As TLabel).Font.Style :=(Sender As TLabel).Font.Style-[fsUnderLine];
+end;
+
+procedure TFDP.Label2Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFDP.Label4Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFDP.SpinEdit1Change(Sender: TObject);
+var i:integer;
+begin
+  co.percount:=SpinEdit1.Value;
+  SGPost.ColCount:=SpinEdit1.Value+1;
+  SGZat.ColCount:=SpinEdit1.Value+1;
+  SGPot.ColCount:=SpinEdit1.Value+1;
+  SGPost.Cells[0,0]:='Период';
+  for i:= 1 to SpinEdit1.Value do
+  SGPost.Cells[i,0]:=InttoStr(i);
+  SGZat.Cells[0,0]:='Период';
+  for i:= 1 to SpinEdit1.Value do
+  SGZat.Cells[i,0]:=InttoStr(i);
+  SGPot.Cells[0,0]:='Период';
+  for i:= 1 to SpinEdit1.Value do
+  SGPot.Cells[i,0]:=InttoStr(i);
+  Fdper.sg1.ColCount:=SpinEdit1.Value+2;
+   Fdper.sg1.Cells[0,0]:='Период';
+  for i:= 1 to SpinEdit1.Value do
+   Fdper.sg1.Cells[i,0]:=InttoStr(i);
+   Fdper.sg1.Cells[SpinEdit1.Value+1,0]:='Итого';
+
+end;
+
+procedure TFDP.SpinEdit2Change(Sender: TObject);
+begin
+ // SGPost.RowCount:=SpinEdit2.Value+6;
+ // SGZat.RowCount:=SpinEdit2.Value+7;
+
+  {SGPost.Cells[0,1]:='Собственные средства';
+  SGPost.Cells[0,2]:='Отечественные кредиты';
+  SGPost.Cells[0,3]:='Иностранные кредиты';
+  SGPost.Cells[0,4]:='Продажа на экспорт';
+  SGPost.Cells[0,5]:='Продажа на внутр. рынок';  }
+ // SGPost.Cells[0,SGPost.RowCount-1]:='ИТОГИ поступления'; }
+  SGPost.ColWidths[0]:=150;
+  //SGPost.Canvas.TextWidth('Продажа на внутр. рынок  ');
+
+  {SGZat.Cells[0,1]:='Единовременные затраты';
+  SGZat.Cells[0,2]:='Цеховые и общехозяйственные расходы';
+  SGZat.Cells[0,3]:='Осн. материалы, покупные изделия, п/ф, услуги произв. хар.';
+  SGZat.Cells[0,4]:='Топл. и энерг. на техн. нужды, расх по сод. и экспл. оборуд.';
+  SGZat.Cells[0,5]:='Осн. и доп. з/пл произв. раб. и отч. на соц. нужды';
+  SGZat.Cells[0,6]:='Коммерческие расходы';         }
+ // SGZat.Cells[0,SGZat.RowCount-1]:='ИТОГИ затрат';
+  SGZat.Canvas.Font := SGZat.Font;
+  SGZat.ColWidths[0]:= 150;
+  //SGZat.Canvas.TextWidth('Топл. и энерг. на техн. нужды, расх по сод. и экспл. оборуд. ');
+end;
+
+procedure TFDP.FormShow(Sender: TObject);
+begin
+     // co.percount:=SpinEdit1.Value;
+  SpinEdit1Change(Spinedit1);
+  SpinEdit2Change(Spinedit2);
+
+  SGPot.Cells[0,1]:='Приток';
+  SGPot.Cells[0,2]:='Отток';
+  SGPot.Cells[0,3]:='Сальдо';
+{  SGPot.RowHeights[4] := 0;
+  SGPot.RowHeights[5] := 0;}
+delRow := -1;
+end;
+
+procedure TFDP.Label11Click(Sender: TObject);                         //куепуп
+var i,j:integer;
+    a,b,c,d,s,otv:real;
+begin
+
+if cb3.ItemIndex=0 then
+fd.SpeedButton1.OnClick(self)
+  else
+  begin
+  a:=strtofloat(fd.edit1.Text);
+  b:=strtofloat(fd.edit2.Text);
+  c:=strtofloat(fd.edit3.Text);
+  d:=a+b+c;
+  //d:=39.67;
+  //showmessage(floattostr(d));
+  d:=1+d/100;
+ // showmessage(floattostr(d));
+  //d:=power(d,1/4);
+  d:=exp(ln(d)/4);
+  //showmessage(floattostr(d));
+  otv:= (d-1)*100;
+ // showmessage(floattostr(otv));
+  fd.Label9.Caption:=floattostr(roundto(otv,-4));
+end;
+
+co.percount:=Spinedit1.Value;
+  for i:=1 to Spinedit1.Value do
+  begin
+    s:=0;
+    for j:=1 to SGPost.RowCount-2 do
+    begin
+      if (SGPost.Cells[i,j]='') or (SGPost.Cells[i,j]=' ') then SGPost.Cells[i,j]:='0';
+      s:=s+StrToFloat(SGPost.Cells[i,j]);
+    End;
+      SGPost.Cells[i,SGPost.RowCount-1]:=RTS(s);
+  End;
+
+  for i:=1 to Spinedit1.Value do
+  begin
+    s:=0;
+    for j:=1 to SGZat.RowCount-2 do
+    begin
+      if (SGZat.Cells[i,j]='') or (SGZat.Cells[i,j]=' ') then SGZat.Cells[i,j]:='0';
+      s:=s+StrToFloat(SGZat.Cells[i,j]);
+    End;
+    SGZat.Cells[i,SGZat.RowCount-1]:=RTS(s);
+  End;
+
+  for i:=1 to Spinedit1.Value do
+  Begin
+     SGPot.Cells[i,1]:=SGPost.Cells[i, SGPost.RowCount-1];
+     SGPot.Cells[i,2]:=SGZat.Cells[i, SGZat.RowCount-1];
+     SGPot.Cells[i,3]:=RTS(StrToFloat(SGPot.Cells[i,1])-StrToFloat(SGPot.Cells[i,2]));     
+     SGPot.Cells[i,4]:=RTS(StrToFloat(SGZat.Cells[i, SGZat.RowCount-1])-StrToFloat(SGZat.Cells[i,1]));
+     SGPot.Cells[i,5]:=RTS(StrToFloat(SGPost.Cells[i, SGPost.RowCount-1])-StrToFloat(SGPot.Cells[i,4]));
+  End;
+end;
+
+procedure TFDP.SpeedButton1Click(Sender: TObject);
+var i,j:integer;
+    z,n:real;
+
+//===========================power---------------------------------
+
+  function Power(X, N : real) : extended;
+  var
+    t : longint;
+    r : real;
+    isInteger : boolean;
+  begin
+
+  if N = 0 then
+  begin
+    result := 1.0;
+    exit;
+  end;
+
+  if X = 1.0 then
+  begin
+    result := 1.0;
+    exit;
+  end;
+
+  if X = 0.0 then
+  begin
+    if N > 0.0 then
+    begin
+      result := 0.0;
+      exit;
+    end
+  else
+    raise EPowerException.Create('Результат - бесконечность');
+  end;
+
+
+  if (X > 0) then
+  try
+    result := exp(N * ln(X));
+    exit;
+  except
+    raise EPowerException.Create('Результат - переполнение или потеря значимости');
+  end;
+
+
+  { X - отрицательный, но мы все еще можем вычислить результат, если n целое. }
+  { пытаемся получить целую часть n с использованием типа longint, вычисление }
+  { четности n не займет много времени }
+
+  try
+    t := trunc(n);
+    if (n - t) = 0 then
+      isInteger := true
+  else
+    isInteger := False;
+  except
+  { Лишний бит может вызвать переполнение или потерю значимости }
+
+  r := int(n);
+  if (n - r) = 0 then
+  begin
+    isInteger := true;
+    if frac(r/2) = 0.5 then
+      t := 1
+    else
+      t := 2;
+    end
+  else
+    isInteger := False;
+  end;
+
+  if isInteger then
+  begin
+  {n целое}
+    if odd(t) then
+    {n нечетное}
+    try
+      result := -exp(N * ln(-X));
+      exit;
+    except
+      raise EPowerException.Create('Результат - переполнение или потеря значимости');
+    end
+    else
+    {n четное}
+    try
+      result := exp(N * ln(-X));
+      exit;
+    except
+      raise EPowerException.Create('Результат - переполнение или потеря значимости');
+    end;
+  end
+  else
+    raise EPowerException.Create('Результат невычисляем');
+end;
+
+//=================================================----------------------------
+
+begin
+  Label11Click(sender);
+  if Fd.Label9.Caption = '' then
+    Fd.SpeedButton1Click(sender);
+
+  for i:=1 to SpinEdit1.Value  do
+  begin
+       z := 1 / Power(1 + strtofloat(Fd.Label9.Caption), i - 1);
+
+       //FDper.sg1.Cells[i,1]:=RTS(StrToFloat(SGZat.Cells[i,1]) * z);
+       FDper.sg1.Cells[i,1]:=RTS(StrToFloat(SGPot.Cells[i,1]) * z);
+       FDper.sg1.Cells[i,2]:=RTS(StrToFloat(SGPot.Cells[i,2]) * z);
+       FDper.sg1.Cells[i,3]:=floattostr(StrToFloat(FDper.sg1.Cells[i,1])-StrToFloat(FDper.sg1.Cells[i,2]));
+  End;
+
+
+  z:=0;
+  for i:=1 to SpinEdit1.Value do
+    z:=z+StrToFloat(FDper.sg1.Cells[i,1]);
+    FDper.sg1.Cells[Spinedit1.Value+1,1]:=RTS(Z);
+    z:=0;
+
+  for i:=1 to SpinEdit1.Value do
+    z:=z+StrToFloat(FDper.sg1.Cells[i,2]);
+
+    FDper.sg1.Cells[Spinedit1.Value+1,2]:=RTS(Z);
+    FDper.Show;
+    FDper.sg1.Cells[0,0]:='Период';
+    FDper.sg1.Cells[0,1]:='Дисконтир. доходы';
+    FDper.sg1.Cells[0,2]:='Дисконтир. затраты';
+    FDper.sg1.Cells[0,3]:='ЧДД';
+    FDper.sg1.Cells[0,4]:='ЧТС';
+    FDper.sg1.ColWidths[0] := FDper.sg1.Canvas.TextWidth('Дисконтир. затраты');
+
+  z:=0;
+  for j:=1 to SpinEdit1.Value + 1 do
+    FDper.Label28.Caption:= FDper.sg1.Cells[SpinEdit1.Value + 1,3];
+
+  z:=0;
+  for i:=1 to SpinEdit1.Value do
+    z:=z+StrToFloat(FDper.sg1.Cells[i,1]);
+    FDper.sg1.Cells[Spinedit1.Value+1,1]:=RTS(Z);
+    z:=0;
+
+  z:=0;
+//  for j:=1 to SpinEdit1.Value + 1 do
+//    FDper.sg1.Cells[j,3]:=floattostr(StrToFloat(FDper.sg1.Cells[j,1])-StrToFloat(FDper.sg1.Cells[j,2]));
+
+  FDper.sg1.Cells[SpinEdit1.Value + 1, 3]:=floattostr(StrToFloat(FDper.sg1.Cells[SpinEdit1.Value + 1,1])-StrToFloat(FDper.sg1.Cells[SpinEdit1.Value + 1,2]));
+
+   FDper.Label28.Caption:= FDper.sg1.Cells[SpinEdit1.Value + 1,3];
+     FDper.SpeedButton7Click(sender);
+  //FDper.Label49.Caption:=floattostr(StrToFloat((FDper.sg1.Cells[j,1]))/(StrToFloat(FDper.sg1.Cells[j,2])));
+end;
+
+procedure TFDP.SpeedButton2Click(Sender: TObject);
+var s:string;
+i:integer;
+begin
+  s:=InputBox('Добавление','Введите название нового раздела','');
+  if s='' then exit;
+  SGPost.RowCount:=SGPost.RowCount+1;
+  SGPost.Cells[0,SGPost.RowCount-2]:=s;
+  SGPost.Cells[0,SGPost.RowCount-1]:='Итоги';
+  for i:=1 to SpinEdit1.Value do
+  SGPost.Cells[i,SGPost.RowCount-2]:='';
+ // label11.OnClick(self);
+ FDP.SpeedButton3.onclick(self);
+end;
+
+procedure TFDP.SpeedButton3Click(Sender: TObject);
+var i,j:integer;
+    a,b,c,d,s,otv:real;
+begin
+
+if cb3.ItemIndex=0 then
+fd.SpeedButton1.OnClick(self)
+  else
+  begin
+  a:=strtofloat(fd.edit1.Text);
+  b:=strtofloat(fd.edit2.Text);
+  c:=strtofloat(fd.edit3.Text);
+  d:=a+b+c;
+  //d:=39.67;
+  //showmessage(floattostr(d));
+  d:=1+d/100;
+ // showmessage(floattostr(d));
+  //d:=power(d,1/4);
+  d:=exp(ln(d)/4);
+  //showmessage(floattostr(d));
+  otv:= (d-1)*100;
+ // showmessage(floattostr(otv));
+  fd.Label9.Caption:=floattostr(roundto(otv,-4));
+end;
+
+co.percount:=Spinedit1.Value;
+  for i:=1 to Spinedit1.Value do
+  begin
+    s:=0;
+    for j:=1 to SGPost.RowCount-2 do
+    begin
+      if (SGPost.Cells[i,j]='') or (SGPost.Cells[i,j]=' ') then SGPost.Cells[i,j]:='0';
+      s:=s+StrToFloat(SGPost.Cells[i,j]);
+    End;
+      SGPost.Cells[i,SGPost.RowCount-1]:=RTS(s);
+  End;
+
+  for i:=1 to Spinedit1.Value do
+  begin
+    s:=0;
+    for j:=1 to SGZat.RowCount-2 do
+    begin
+      if (SGZat.Cells[i,j]='') or (SGZat.Cells[i,j]=' ') then SGZat.Cells[i,j]:='0';
+      s:=s+StrToFloat(SGZat.Cells[i,j]);
+    End;
+    SGZat.Cells[i,SGZat.RowCount-1]:=RTS(s);
+  End;
+
+  for i:=1 to Spinedit1.Value do
+  Begin
+     SGPot.Cells[i,1]:=SGPost.Cells[i, SGPost.RowCount-1];
+     SGPot.Cells[i,2]:=SGZat.Cells[i, SGZat.RowCount-1];
+     SGPot.Cells[i,3]:=RTS(StrToFloat(SGPot.Cells[i,1])-StrToFloat(SGPot.Cells[i,2]));
+     SGPot.Cells[i,4]:=RTS(StrToFloat(SGZat.Cells[i, SGZat.RowCount-1])-StrToFloat(SGZat.Cells[i,1]));
+     SGPot.Cells[i,5]:=RTS(StrToFloat(SGPost.Cells[i, SGPost.RowCount-1])-StrToFloat(SGPot.Cells[i,4]));
+  End;
+end;
+
+procedure TFDP.SpeedButton4Click(Sender: TObject);
+var s:string;
+i:integer;
+begin
+  s:=InputBox('Добавление','Введите название нового раздела','');
+  if s='' then exit;
+  SGZat.RowCount:=SGZat.RowCount+1;
+  SGZat.Cells[0,SGZat.RowCount-2]:=s;
+  SGZat.Cells[0,SGZat.RowCount-1]:='Итоги';
+  for i:=1 to SpinEdit1.Value do
+  SGZat.Cells[i,SGZat.RowCount-2]:='';
+ // label11.OnClick(self);
+ FDP.SpeedButton3.onclick(self);
+
+
+end;
+
+procedure TFDP.SpeedButton5Click(Sender: TObject);
+var s:string;
+i:integer;
+begin
+
+
+  SGPost.Cells[0,SGPost.RowCount-2]:=s;
+  SGPost.Cells[0,SGPost.RowCount-1]:='Итоги';
+  for i:=1 to SpinEdit1.Value do
+  SGPost.Cells[i,SGPost.RowCount-2]:='';
+ // label11.OnClick(self);
+ FDP.SpeedButton3.onclick(self);
+  SGPost.RowCount:=SGPost.RowCount-1;
+end;
+
+procedure TFDP.SGPostMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+var
+  ar, ac : integer;
+begin
+  (sender as TStringGrid).MouseToCell(X,Y,ac,ar);
+  if ar > 0 then
+    (sender as TStringGrid).Hint := (sender as TStringGrid).Cells[0, ar];
+end;
+
+procedure TFDP.SGPostSelectCell(Sender: TObject; ACol, ARow: Integer;
+  var CanSelect: Boolean);
+begin
+if ((Arow <> 0 ) and (Arow < SGPost.RowCount - 1) and (ACol <> 0)) then
+  showmessage('fdgdfgd');
+delRow1 := ARow;
+end;
+
+procedure TFDP.SGZatMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+var
+  ar, ac : integer;
+begin
+  (sender as TStringGrid).MouseToCell(X,Y,ac,ar);
+  if ar > 0 then
+    (sender as TStringGrid).Hint := (sender as TStringGrid).Cells[0, ar];
+end;
+
+procedure TFDP.L1MouseEnter(Sender: TObject);
+begin
+ { with L1 do Font.Style :=Font.Style+[fsUnderLine];
+  with L2 do Font.Style :=Font.Style+[fsUnderLine];           }
+end;
+
+procedure TFDP.L1MouseLeave(Sender: TObject);
+begin
+ { with L1 do Font.Style := Font.Style-[fsUnderLine];
+  with L2 do Font.Style := Font.Style-[fsUnderLine];          }
+end;
+
+procedure TFDP.Label13Click(Sender: TObject);
+var s:string;
+i:integer;
+begin
+  s:=InputBox('Добавление','Введите название нового раздела','');
+  if s='' then exit;
+  SGPost.RowCount:=SGPost.RowCount+1;
+  SGPost.Cells[0,SGPost.RowCount-2]:=s;
+  SGPost.Cells[0,SGPost.RowCount-1]:='Итоги';
+  for i:=1 to SpinEdit1.Value do
+  SGPost.Cells[i,SGPost.RowCount-2]:='';
+ /// label11.OnClick(self);
+FDP.SpeedButton3.onclick(self);
+end;
+
+procedure TFDP.Label12Click(Sender: TObject);
+var s:string;
+i:integer;
+begin
+  s:=InputBox('Добавление','Введите название нового раздела','');
+  if s='' then exit;
+  SGZat.RowCount:=SGZat.RowCount+1;
+  SGZat.Cells[0,SGZat.RowCount-2]:=s;
+  SGZat.Cells[0,SGZat.RowCount-1]:='Итоги';
+  for i:=1 to SpinEdit1.Value do
+  SGZat.Cells[i,SGZat.RowCount-2]:='';
+ //- label11.OnClick(self);
+  FDP.SpeedButton3.onclick(self);
+end;
+
+end.
