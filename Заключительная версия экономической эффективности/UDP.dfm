@@ -27,6 +27,10 @@ object FDP: TFDP
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = #1055#1086#1089#1090#1091#1087#1083#1077#1085#1080#1103'/'#1069#1082#1086#1085#1086#1084#1080#1103
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel1: TBevel
         Left = 0
         Top = 528
@@ -84,6 +88,10 @@ object FDP: TFDP
     object TabSheet2: TTabSheet
       Caption = #1047#1072#1090#1088#1072#1090#1099
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel2: TBevel
         Left = 0
         Top = 524
@@ -141,6 +149,10 @@ object FDP: TFDP
     object TabSheet3: TTabSheet
       Caption = #1055#1086#1090#1086#1082#1080' '#1076#1077#1085#1077#1078#1085#1099#1093' '#1089#1088#1077#1076#1089#1090#1074
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel3: TBevel
         Left = 0
         Top = 514
@@ -257,7 +269,7 @@ object FDP: TFDP
       Left = 560
       Top = 8
       Width = 145
-      Height = 22
+      Height = 19
       Ctl3D = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 140
@@ -277,7 +289,7 @@ object FDP: TFDP
       Left = 184
       Top = 8
       Width = 57
-      Height = 22
+      Height = 19
       Ctl3D = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 140

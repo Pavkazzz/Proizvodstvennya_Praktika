@@ -134,7 +134,7 @@ end;
 
 procedure TFd.Edit1KeyPress(Sender: TObject; var Key: Char);
 begin
-  if not(key in [#8, '0'..'9', DecimalSeparator]) then
+  if not(key in [#8, '0'..'9']) then
     key := #0;
 end;
 

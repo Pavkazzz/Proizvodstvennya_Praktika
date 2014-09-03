@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, TeeProcs, TeEngine, Chart, StdCtrls, ExtCtrls, Series,math,
-  WordXP, OleServer,word2000, Word_2K_SRVR;
+  WordXP, OleServer,word2000;//, Word_2K_SRVR;
 
 type
   TForm1 = class(TForm)

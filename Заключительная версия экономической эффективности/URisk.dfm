@@ -29,7 +29,6 @@ object FRisk: TFRisk
     Top = -36
     Width = 856
     Height = 586
-    BackWall.Brush.Color = clWhite
     BackWall.Brush.Style = bsClear
     Gradient.EndColor = clBlack
     Gradient.StartColor = clRed
@@ -41,6 +40,7 @@ object FRisk: TFRisk
     AxisVisible = False
     View3DWalls = False
     TabOrder = 0
+    DefaultCanvas = 'TGDIPlusCanvas'
     ColorPaletteIndex = 13
     object Label4: TLabel
       Left = 774
@@ -96,7 +96,6 @@ object FRisk: TFRisk
       Top = 1
       Width = 736
       Height = 584
-      BackWall.Brush.Color = clWhite
       BackWall.Brush.Style = bsClear
       Gradient.Direction = gdRightLeft
       Gradient.EndColor = clRed
@@ -112,6 +111,7 @@ object FRisk: TFRisk
       BevelOuter = bvNone
       TabOrder = 0
       ExplicitLeft = 0
+      DefaultCanvas = 'TGDIPlusCanvas'
       ColorPaletteIndex = 13
       object Label3: TLabel
         Left = 32

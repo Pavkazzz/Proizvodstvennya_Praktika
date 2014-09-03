@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, TeeProcs, TeEngine, Chart, StdCtrls, Buttons;
+  Dialogs, ExtCtrls, TeeProcs, TeEngine, Chart, StdCtrls, Buttons,
+  VclTee.TeeGDIPlus;
 
 type
   TFRisk = class(TForm)
@@ -80,7 +81,7 @@ var
 implementation
 
 {$R *.dfm}
-uses uconverter, UDP, Ud;
+uses UDP, Ud, UConverter;
 
 procedure TFRisk.FormCreate(Sender: TObject);
 var r1,r2:HRGN;

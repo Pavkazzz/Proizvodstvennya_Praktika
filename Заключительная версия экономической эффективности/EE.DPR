@@ -4,8 +4,7 @@ program EE;
 
 uses
   Forms,
- URisk in 'URisk.pas' {FRisk},
-  UConverter in '..\..\Новая папка\Djcr\Работа\Работа на 22\Исправляемая версия\ээ2\ээ2\UConverter.pas',
+  URisk in 'URisk.pas' {FRisk},
   UDP in 'UDP.PAS' {FDP},
   Ud in 'Ud.pas' {Fd},
   UCDD in 'UCDD.PAS' {FDper},
@@ -13,7 +12,8 @@ uses
   UMain in 'UMain.pas' {FMain},
   UCO in 'UCO.pas' {CO},
   Unit1 in 'Unit1.pas' {Form1},
-  UZast in 'UZast.pas' {FZast};
+  UZast in 'UZast.pas' {FZast},
+  UConverter in 'UConverter.pas';
 
 {$R *.res}
 
@@ -21,13 +21,12 @@ begin
   Application.Initialize;
   Application.CreateForm(TFZast, FZast);
   Application.CreateForm(TFMain, FMain);
- Application.CreateForm(TFRisk, FRisk);
+  Application.CreateForm(TFRisk, FRisk);
   Application.CreateForm(TFDP, FDP);
   Application.CreateForm(TFd, Fd);
   Application.CreateForm(TFDper, FDper);
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TCO, CO);
   Application.CreateForm(TForm1, Form1);
-
   Application.Run;
 end.

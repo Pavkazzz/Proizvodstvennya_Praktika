@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, TeeProcs, TeEngine, Chart, StdCtrls, Buttons, Grids,
   Series, TeeFunci, Math, {BaseGrid, AdvGrid WordXP0,} OleServer, shellapi,
-  WordXP,Word2000, Word_XP_srvr, Word_2K_SRVR;
+  WordXP,Word2000 ;//, Word_XP_srvr, Word_2K_SRVR;
 
 type
   TFDper = class(TForm)
@@ -49,13 +49,13 @@ type
     SpeedButton7: TSpeedButton;
     Button1: TButton;
     Button8: TButton;
-   { WordApplication1: TWordApplication;
-    WordFont1: TWordFont;
-    WordParagraphFormat1: TWordParagraphFormat;       }
-    OD: TOpenDialog;
-    WordParagraphFormat1: TWordParagraphFormat;
-    WordFont1: TWordFont;
     WordApplication1: TWordApplication;
+    WordFont1: TWordFont;
+    WordParagraphFormat1: TWordParagraphFormat;
+    OD: TOpenDialog;
+    //WordParagraphFormat1: TWordParagraphFormat;
+    //WordFont1: TWordFont;
+    //WordApplication1: TWordApplication;
     Series3: TBarSeries;
     Series4: TBarSeries;
     Series5: TBarSeries;
@@ -108,7 +108,7 @@ var
 
 implementation
 
-uses UDP, Uconverter, Ud, UCO, Unit1, URisk;
+uses UDP,  Ud, UCO, Unit1, URisk;
 
 {$R *.dfm}
 

@@ -91,7 +91,7 @@ implementation
 
 {$R *.dfm}
 
-USES UConverter, UCDD, Ud, UCO;
+USES  UCDD, Ud, UCO, UConverter;
 
 procedure TFDP.FormCreate(Sender: TObject);
 var r1,r2:HRGN;
