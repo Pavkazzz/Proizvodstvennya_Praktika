@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, TeeProcs, TeEngine, Chart, StdCtrls, Buttons, Grids,
   Series, TeeFunci, Math, {BaseGrid, AdvGrid WordXP0,} OleServer, shellapi,
-  WordXP,Word2000, Word_XP_srvr, Word_2K_SRVR;
+  WordXP,Word2000 ;//, Word_XP_srvr, Word_2K_SRVR;
 
 type
   TFDper = class(TForm)
@@ -17,9 +17,6 @@ type
     Chart1: TChart;
     Series1: TLineSeries;
     Series2: TLineSeries;
-    Series3: TBarSeries;
-    Series4: TBarSeries;
-    Series5: TBarSeries;
     Button4: TButton;
     Button3: TButton;
     Panel1: TPanel;
@@ -56,6 +53,12 @@ type
     WordFont1: TWordFont;
     WordParagraphFormat1: TWordParagraphFormat;
     OD: TOpenDialog;
+    //WordParagraphFormat1: TWordParagraphFormat;
+    //WordFont1: TWordFont;
+    //WordApplication1: TWordApplication;
+    Series3: TBarSeries;
+    Series4: TBarSeries;
+    Series5: TBarSeries;
     procedure FormCreate(Sender: TObject);
     procedure Panel1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -105,7 +108,7 @@ var
 
 implementation
 
-uses UDP, Uconverter, Ud, UCO, Unit1, URisk;
+uses UDP,  Ud, UCO, Unit1, URisk;
 
 {$R *.dfm}
 
@@ -171,7 +174,9 @@ begin
 
   chart1.Series[0].Clear;
   for i:=1 to sg1.ColCount-2 do
+  begin
     chart1.Series[0].AddXY(round(StrToFloat(sg1.cells[i,0])), round(StrToFloat(sg1.cells[i,3])));
+  end;
 {  n:=sg1.ColCount-1;
   SetLength(x,sg1.ColCount-1);
   SetLength(y,sg1.ColCount-1);
@@ -201,6 +206,7 @@ begin
        LineTo(Round(x[i]*scalex), Round(PaintBox1.Height div 2 - y[i]*scaley));
     end;
   end;    }
+
 end;
 
 procedure TFDper.SpeedButton2Click(Sender: TObject);
@@ -954,14 +960,14 @@ WordApplication1.Selection.TypeText(fdp.combobox1.text);
 
 WordApplication1.Selection.TypeText(#13);
 WordApplication1.Selection.Font.Bold:=1;
-WordApplication1.Selection.TypeText('×ÄÄ:');
+WordApplication1.Selection.TypeText('×ÄÄ(Ñèíèé):');
 WordApplication1.Selection.TypeText(#32);
 WordApplication1.Selection.Font.Bold:=0;
 WordApplication1.Selection.TypeText(label28.Caption);
 
 WordApplication1.Selection.TypeText(#13);
 WordApplication1.Selection.Font.Bold:=1;
-WordApplication1.Selection.TypeText('×ÒÑ:');
+WordApplication1.Selection.TypeText('×ÒÑ(Êðàñíûé):');
 WordApplication1.Selection.TypeText(#32);
 WordApplication1.Selection.Font.Bold:=0;
 WordApplication1.Selection.TypeText(label52.caption);
@@ -1060,13 +1066,18 @@ con:=j+50;
  WordApplication1.Selection.TypeText(#13);
   WordApplication1.Selection.MoveDown(EmptyParam,con,EmptyParam);
  WordApplication1.Selection.TypeText(#13);
- 
+
 
 
 
 chart1.CopyToClipboardBitmap;
 WordApplication1.Selection.Paste;
 
+WordApplication1.Selection.Paragraphs.Format.Alignment:=wdAlignParagraphCenter;   //!!!!!!!!!!!!!!!
+WordApplication1.Selection.Font.Size:=15;
+WordApplication1.Selection.TypeText(#13);
+WordApplication1.Selection.Font.Bold:=1;
+WordApplication1.Selection.TypeText('Ãðàôèê ×ÄÄ è ×ÒÑ');
 
 WordApplication1.Visible:=true;
 WordApplication1.Disconnect;

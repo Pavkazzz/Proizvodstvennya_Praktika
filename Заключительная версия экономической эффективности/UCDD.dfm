@@ -29,7 +29,6 @@ object FDper: TFDper
       Top = 402
       Width = 925
       Height = 266
-      BackWall.Brush.Color = clWhite
       BackWall.Brush.Style = bsClear
       Gradient.Direction = gdFromCenter
       Gradient.EndColor = clWindow
@@ -48,46 +47,39 @@ object FDper: TFDper
       Title.Text.Strings = (
         #1043#1088#1072#1092#1080#1082' '#1063#1044#1044' '#1080' '#1063#1058#1057)
       Title.Visible = False
-      BottomAxis.LabelsFont.Color = 4194368
+      BottomAxis.LabelsFormat.Font.Color = 4194368
       LeftAxis.Axis.Color = clRed
       LeftAxis.Axis.Width = 1
       LeftAxis.ExactDateTime = False
-      LeftAxis.LabelsFont.Color = 4194368
-      RightAxis.LabelsFont.Color = clWhite
-      TopAxis.LabelsFont.Color = clWhite
+      LeftAxis.LabelsFormat.Font.Color = 4194368
+      RightAxis.LabelsFormat.Font.Color = clWhite
+      TopAxis.LabelsFormat.Font.Color = clWhite
       View3D = False
       Align = alClient
       Color = 13160660
       TabOrder = 0
+      DefaultCanvas = 'TGDIPlusCanvas'
       ColorPaletteIndex = 13
       object Series1: TLineSeries
-        Marks.Arrow.Visible = True
-        Marks.Callout.Brush.Color = clBlack
-        Marks.Callout.Arrow.Visible = True
         Marks.Shadow.Color = 8553090
-        Marks.Visible = False
         SeriesColor = clRed
         Title = #1063#1080#1089#1090#1099#1081' '#1076#1080#1082#1072#1085#1090#1080#1088#1091#1077#1084#1099#1081' '#1076#1086#1093#1086#1076
+        Brush.BackColor = clDefault
         LinePen.Width = 4
         Pointer.InflateMargins = True
         Pointer.Style = psRectangle
-        Pointer.Visible = False
         XValues.Name = 'X'
         XValues.Order = loAscending
         YValues.Name = 'Y'
         YValues.Order = loNone
       end
       object Series2: TLineSeries
-        Marks.Arrow.Visible = True
-        Marks.Callout.Brush.Color = clBlack
-        Marks.Callout.Arrow.Visible = True
         Marks.Shadow.Color = 8553090
-        Marks.Visible = False
         Title = #1063#1080#1089#1090#1072#1103' '#1090#1077#1082#1091#1097#1072#1103' '#1089#1090#1086#1080#1084#1086#1089#1090#1100
+        Brush.BackColor = clDefault
         LinePen.Width = 4
         Pointer.InflateMargins = True
         Pointer.Style = psRectangle
-        Pointer.Visible = False
         XValues.Name = 'X'
         XValues.Order = loAscending
         YValues.Name = 'Y'
@@ -95,10 +87,6 @@ object FDper: TFDper
       end
       object Series3: TBarSeries
         Active = False
-        Marks.Arrow.Visible = True
-        Marks.Callout.Brush.Color = clBlack
-        Marks.Callout.Arrow.Visible = True
-        Marks.Visible = True
         SeriesColor = clRed
         Title = #1063#1080#1089#1090#1099#1081' '#1076#1080#1082#1072#1085#1090#1080#1088#1091#1077#1084#1099#1081' '#1076#1086#1093#1086#1076
         XValues.Name = 'X'
@@ -108,10 +96,6 @@ object FDper: TFDper
       end
       object Series4: TBarSeries
         Active = False
-        Marks.Arrow.Visible = True
-        Marks.Callout.Brush.Color = clBlack
-        Marks.Callout.Arrow.Visible = True
-        Marks.Visible = True
         SeriesColor = clBlue
         Title = #1063#1080#1089#1090#1072#1103' '#1090#1077#1082#1091#1097#1072#1103' '#1089#1090#1086#1080#1084#1086#1089#1090#1100
         XValues.Name = 'X'
@@ -121,10 +105,6 @@ object FDper: TFDper
       end
       object Series5: TBarSeries
         Active = False
-        Marks.Arrow.Visible = True
-        Marks.Callout.Brush.Color = clBlack
-        Marks.Callout.Arrow.Visible = True
-        Marks.Visible = True
         SeriesColor = clWhite
         Title = #1057#1072#1083#1100#1076#1086
         XValues.Name = 'X'
@@ -471,8 +451,8 @@ object FDper: TFDper
           object Label53: TLabel
             Left = 46
             Top = 136
-            Width = 42
-            Height = 23
+            Width = 39
+            Height = 22
             Caption = #1063#1044#1044
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clBlack
@@ -486,7 +466,7 @@ object FDper: TFDper
             Left = 149
             Top = 136
             Width = 39
-            Height = 23
+            Height = 22
             Caption = #1063#1058#1057
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clBlack
@@ -506,8 +486,8 @@ object FDper: TFDper
           object Label56: TLabel
             Left = 250
             Top = 136
-            Width = 64
-            Height = 23
+            Width = 67
+            Height = 22
             Caption = #1057#1072#1083#1100#1076#1086
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clBlack
@@ -549,23 +529,5 @@ object FDper: TFDper
   end
   object OD: TOpenDialog
     Left = 672
-  end
-  object WordParagraphFormat1: TWordParagraphFormat
-    AutoConnect = False
-    ConnectKind = ckRunningOrNew
-    Left = 472
-    Top = 136
-  end
-  object WordFont1: TWordFont
-    AutoConnect = False
-    ConnectKind = ckRunningOrNew
-    Left = 416
-    Top = 136
-  end
-  object WordApplication1: TWordApplication
-    AutoConnect = False
-    ConnectKind = ckRunningOrNew
-    Left = 336
-    Top = 136
   end
 end
